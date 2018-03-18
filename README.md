@@ -39,6 +39,6 @@ Some things we need to change:
 		
 		- Create some diagrams as to how we are going to set up the DB
 			- Will we stick to user login? Also should data be deleted after a certain time? 
-			***This DB I made is the free option on MongoDB that has*** 
-			*512 MB of data to use. So it will run out of space if* 
-			*things aren't deleted.* 
+			***This DB I made is the free option on MongoDB that has 
+			512 MB of data to use. So it will run out of space if
+			things aren't deleted.*** 
