@@ -1,0 +1,45 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-6 col-lg-6">
+			<div class="jumbotron">
+
+				<div class="form">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group">
+  								<label for="usr">Username:</label>
+  								<input type="text" class="form-control" placeholder="Enter Username" id="usr">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="pss">Password:</label>
+								<input type="password" class="form-control" placeholder="Enter Password" id="pss">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" *ngIf="loginFailed">
+					<div class="col-lg-6">
+						<div class="alert alert-warning"> 
+							<!-- Probably want to change this to detect specifically username or password. -->
+							Your login was unsuccessful. Please try again.
+						</div>
+					</div>
+				</div>
+				<br>
+
+				<button class="btn btn-default" (click)="onLogin($event)">
+					Login
+				</button>
+				<button class="btn btn-default" (click)="onSignup()" 
+					data-toggle="modal" data-target="#formModal">Sign Up</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="formModal" class="modal fade" role="dialog">
+	<app-form-viewer></app-form-viewer>
+</div>

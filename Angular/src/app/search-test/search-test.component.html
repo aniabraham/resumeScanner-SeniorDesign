@@ -1,0 +1,39 @@
+<div class="container">
+	<div class="row">
+		<div>
+			<div class="jumbotron">
+				<form class="form-inline justify-content-center">
+
+					<label class="sr-only" for="search-box">Search</label>
+					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+					<div class="input-group-text">
+						<div class="input-group-prepend">{{type}}</div>
+					</div>
+						<input #searchBox type="text" class="form-control" id="search-box" placeholder="Search"
+						(keyup)="search(searchBox.value)" />
+					</div>
+				</form>
+
+				<!--<div class="form-inline justify-content-center">
+					<input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+				</div>-->
+
+				<div>
+					<div class="list-group">
+						<a style="cursor: pointer; color: white;" class="list-group-item bg-success" *ngFor="let resume of data | async"
+							(click)="displayData(resume)">{{resume.name}}
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+			<div class="jumbotron">
+				<p *ngIf="displayedData">{{displayedData.name}}:</p>
+				<div class="jumbotron">
+					<span *ngIf="displayedData" class="badge">{{displayedData.education[0].university}}, {{displayedData.education[0].gpa}}</span>
+				</div>
+			</div>
+		</div> -->
+	</div>
+</div>
