@@ -1,0 +1,5 @@
+Download this folder (the one called Angular) and open a terminal in the directory with packages.json.
+Run "npm install" and give it like 3 ish minutes to download all of the node_modules.
+Then, in the same directory, use "ng serve" to host a local version of the site.
+It should be hosted on the url "localhost:4200.
+Let me know if there are any problems (a lot of times the modules can fail to install correctly if the versions of npm are mismatched).
