@@ -1,0 +1,15 @@
+{
+  "name": "mongo",
+  "version": "1.0.0",
+  "description": "Utilities required to setup and maintain mongodb local database.",
+  "main": "mongosetup.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Garrett Krichbaum",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^3.1.4",
+    "mongoose": "^5.2.13"
+  }
+}

@@ -1,0 +1,12 @@
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+#dependencies
+/node_modules
+
+#log files
+*.log
