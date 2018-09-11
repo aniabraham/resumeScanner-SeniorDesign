@@ -1,0 +1,48 @@
+index;file_path;extension;text;candidate_name;email;phone;experience;platforms;database;programming;machinelearning;universities;languages;hobbies;open-source
+2;../data/input/example_resumes/ru_resume.txt;.txt;"Ryan Ubinger
+1931 Geronimo Trail, Maitland, FL 32751
+321-356-1653
+ryan-u@live.com | github.com/ryubi
+
+
+EDUCATION
+    
+University of Central Florida   				2014 - Present                                                                                      
+Orlando, FL
+GPA: 3.4
+Currently seeking B.S. Computer Science and minor in Mathematics
+Anticipated Graduation: December 2018
+Activities: Collegiate Cyber Defense Club, Association of Computer Machinery
+
+EXPERIENCE
+
+Intern								May 2017 - Aug. 2017                                                                                                              
+Adventist Health System
+Utilized CCL (similar to SQL) to generate custom queries in a Cerner database
+Conglomerated data for analysis and visualization, creating easier to understand reports
+Contributed to assurance of revenue cycle operations through transaction analysis
+Intern     							May 2016 - Aug. 2016                                                                                                           
+Wiring Technologies, Inc.
+Assisted in management of company servers and computer systems
+Created a custom Python script to automate data entry, saving an hour per day of manual entry
+Utilized wiring diagrams for assembly and installation of cabling products
+
+SKILLS
+	
+Languages
+Proficient in: C, Java, Python, Matlab
+Familiar with: SQL, CCL, HTML, CSS, C#, JavaScript, Node.js
+Software
+Technologies: git, REST APIs, Microsoft Excel & Access
+Platforms: Windows, Linux, MacOS, Android
+
+PROJECTS
+	
+House Price Predictor - A Python program that uses a dataset containing aspects of residential homes to predict a sale price using machine learning algorithms
+Resume Scanner - A database-backed application with web/mobile front-ends that uses computer vision techniques and natural language processing to scan and parse resumes
+		
+ACHIEVEMENTS
+
+Dean's List - University of Central Florida			2017-2018	
+Certified in Microsoft Excel and Access			2016
+Eagle Scout Award - Boy Scouts of America     		2013   ";Ryan Ubinger;;('321', '356', '1653', '\n', '');{'intern'};{'Linux', 'Windows', 'Mac'};{'SQL'};{'java', 'C#', 'python', 'C', 'R', 'Javascript', 'Matlab'};{'tensorflow'};{'UCF', 'GT', 'UM'};set();set();{'github'}

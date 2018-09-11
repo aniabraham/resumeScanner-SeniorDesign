@@ -1,0 +1,66 @@
+resume_directory: ../data/input/example_resumes
+summary_output_directory: ../data/output
+data_schema_dir: ../data/schema
+
+extractors:
+ experience:
+  - intern
+  - [developer, software developer, software engineer, dev]
+  - [Teacher, teaching assistant, professor, instructor]
+
+ platforms:
+  - Linux
+  - Windows
+  - [Mac, MacOS]
+
+ database:
+  - SQL
+  - MySQL
+  - [Postgres, Postgresql]
+  - Oracle
+  - [MongoDB, Mongo]
+
+ programming:
+  - [java, JavaEE]
+  - C
+  - C++
+  - C#
+  - .NET
+  - Matlab
+  - R
+  - python
+  - Javascript
+
+ machinelearning:
+  - [sklearn, scikit-learn, sk-learn]
+  - [tensorflow, tf, tensor-flow]
+  - keras
+  - h20
+
+ universities:
+  - [UCF, University of Central Florida, Central Florida]
+  - [UF, University of Florida]
+  - [FSU, Florida State University]
+  - [UM, University of Miami]
+  - [GT, GIT, Georgia Institute of Technology, Georgia Tech]
+  - [MIT, Massachussetts Institute of Technology]
+
+ languages:
+  - English
+  - German
+  - Spanish
+  - French
+  - [Chinese, Mandarin, Cantonese]
+
+ hobbies:
+  - [swimming, swim]
+  - [soccer, football]
+  - painting
+  - reading
+
+ open-source:
+  - github
+  - bitbucket
+  - gitlab
+  - sourceforge
+  - gitkraken
