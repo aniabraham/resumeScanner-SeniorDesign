@@ -88,7 +88,8 @@ const startData = [
         path: "http://www.goodresumesamples.com/wp-content/uploads/2016/06/example-of-good-resume-768x994.png",
         date: new Date(2018, 9, 3)
     }
-]
+];
+
 var newResume = null;
 startData.forEach( function(data) {
     newResume = new ResumeModel(data);
