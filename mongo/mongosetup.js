@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
-var db = mongoose.createConnection('mongodb://127.0.0.1:27017/Resumes');
+var db = mongoose.createConnection('mongodb://127.0.0.1:27017/resumes');
 
 const Education = new Schema({
     university: String, degree: String, gpa: Number
@@ -89,9 +89,9 @@ const startData = [
         date: new Date(2018, 9, 3)
     }
 ]
-
+var newResume = null;
 startData.forEach( function(data) {
-    var newResume = new ResumeModel(data);
+    newResume = new ResumeModel(data);
     newResume.save(function(err) {
         if (err) {
             console.log(err);
