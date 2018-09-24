@@ -12,6 +12,7 @@ fs.readdirSync(__dirname + '/models').forEach(function(fileName) {
 
 var resume = require('./routes/resume');
 var mobile = require('./routes/mobile');
+var authentication = require('./routes/authentication');
 
 var app = express();
 
@@ -24,8 +25,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/resume', resume);
+app.use('/authentication', authentication);
 app.use('/mobile', mobile);
 
+/*
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -43,5 +46,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.json(err);
 });
+*/
 
 module.exports = app;
