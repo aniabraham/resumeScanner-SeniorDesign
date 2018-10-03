@@ -4,11 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var fs = require('fs');
-
-fs.readdirSync(__dirname + '/models').forEach(function(fileName) {
-  require(__dirname + '/models/' + fileName);
-});
 
 var resume = require('./routes/resume');
 var mobile = require('./routes/mobile');

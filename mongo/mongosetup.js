@@ -4,6 +4,18 @@ const ObjectId = Schema.ObjectId;
 
 var db = mongoose.createConnection('mongodb://127.0.0.1:27017/resumes');
 
+const UserData = new Schema({
+    username: String, password: String
+});
+
+UserData.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(9));
+}
+
+UserData.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
+}
+
 const Education = new Schema({
     university: String, degree: String, gpa: Number
 });
@@ -22,6 +34,7 @@ const ResumeData = new Schema({
 });
 
 const ResumeModel = db.model('Resume', ResumeData);
+const UserModel = db.model('User', UserData);
 
 
 const startData = [
@@ -99,3 +112,14 @@ startData.forEach( function(data) {
         }
     });
 })
+
+newUser = new UserModel({
+    username: "admin",
+    password: this.generateHash("admin")
+});
+
+newUser.save(function(err) {
+    if (err) {
+        console.log(err);
+    }
+});

@@ -23,4 +23,4 @@ const ResumeData = new Schema({
     date: Date
 });
 
-mongoose.model('resumes', ResumeData);
+module.exports = mongoose.model('resumes', ResumeData);
