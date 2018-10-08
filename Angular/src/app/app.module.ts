@@ -5,12 +5,10 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService }  from './in-memory-data.service';
 import { AuthService } from './auth.service';
 
 import { AppComponent } from './app.component';
 import { TGamPdfViewerComponent } from './tgam-pdf-viewer/tgam-pdf-viewer.component';
-import { GetResumeDataService } from './get-resume-data.service';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import 'hammerjs';
@@ -21,6 +19,7 @@ import { FormViewerComponent } from './form-viewer/form-viewer.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ResumeViewerComponent } from './resume-viewer/resume-viewer.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 @NgModule({
@@ -33,17 +32,17 @@ import { ResumeViewerComponent } from './resume-viewer/resume-viewer.component';
 		FormViewerComponent,
 		LoginComponent,
 		ProfileComponent,
-		ResumeViewerComponent 
+		ResumeViewerComponent,
+		SignupComponent 
 	],
 	imports: [
 		BrowserModule,
 		FormsModule,
 		HttpModule,
 		routes,
-		BrowserAnimationsModule,
-		InMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: true })
+		BrowserAnimationsModule
 	],
-	providers: [ GetResumeDataService, AuthService ],
+	providers: [ AuthService ],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

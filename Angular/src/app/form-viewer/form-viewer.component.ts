@@ -10,13 +10,6 @@ declare let $: any;
 	providers: []
 })
 export class FormViewerComponent implements OnInit {
-
-	//
-	// A LOT OF THIS STUFF IS HELPFUL IF WE DECIDE TO 
-	// DO ANY KIND OF LOGIN SETUP, SO I'M LEAVING IT
-	// BUT IT CURRENTLY DOESN'T DO ANYTHING, MIGHT MOVE IT 
-	// TO A SEPARATE FILE JUST FOR STORAGE LATER
-	//
 	
 	@Output() data: EventEmitter<JSON> = new EventEmitter<JSON>();
 

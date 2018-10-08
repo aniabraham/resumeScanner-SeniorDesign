@@ -1,12 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { GetLinkService } from "../get-link.service";
-
 @Component({
 	selector: 'app-tgam-table',
 	templateUrl: './tgam-table.component.html',
-	styleUrls: ['./tgam-table.component.css'],
-	providers: [GetLinkService]
+	styleUrls: ['./tgam-table.component.css']
 })
 export class TGamTableComponent implements OnInit {
 
@@ -15,12 +12,9 @@ export class TGamTableComponent implements OnInit {
 
 	private pdfLinks: JSON;
 
-	constructor(private getLinkService: GetLinkService) { }
+	constructor() { }
 
-	ngOnInit() {
-
-		this.getLinkService.getLinks().then(pdfLinks => this.pdfLinks = pdfLinks);
-	}
+	ngOnInit() { }
 
 	onSelect(path: string): void {
 

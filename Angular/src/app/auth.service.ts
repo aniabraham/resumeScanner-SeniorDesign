@@ -1,32 +1,43 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 
-
-// https://github.com/rajayogan/angular2-new-authentication/blob/master/src/app/auth/auth.service.ts
 @Injectable()
 export class AuthService {
 
-	isAuthenticated: boolean = false;
+	private baseUrl = 'http://127.0.0.1:3000/authentication/login'
+
+	private isAuthenticated: boolean = false;
 
 	constructor(private http: Http) {}
 
-	authenticateNow(usercreds) {
+	authenticateUser(usercreds) {
 		var headers = new Headers();
-		var creds = 'name=' + usercreds.username + '&password=' + usercreds.password;
 
-		headers.append('Content-Type', 'application/X-www-form-urlencoded');
+		headers.append('Access-Control-Allow-Origin', '*');
+		headers.append('Authorization', 'Basic ' + usercreds);
+		headers.append("Content-Type",  "application/x-www-form-urlencoded");
 
 		// need to change to direct to project server, as well as encrypt information
 		return new Promise((resolve) => {
-			this.http.post('http://localhost:3333/authenticate', creds, {headers: headers}).subscribe((data) => {
-				if(data.json().success) {
-					window.localStorage.setItem('auth_key', data.json().token);
-					this.isAuthenticated = true;
-				}
-					resolve(this.isAuthenticated);
+			this.http.post(this.baseUrl, {}, {headers: headers}).subscribe((data) => {
+				console.log(data.json().token);
+				window.localStorage.setItem('auth_key', data.json().token);
+				this.isAuthenticated = true;
+			
+				resolve(this.isAuthenticated);
 				}
 			)
 		});
 	}
 
+	public getToken(): string {
+		if (this.isAuthenticated)
+			return window.localStorage.getItem('auth_key');
+		else
+			return undefined;
+	}
+
+	public getAuth(): boolean {
+		return this.isAuthenticated;
+	}
 }

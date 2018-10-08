@@ -6,13 +6,6 @@ var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://127.0.0.1:27017/resumes');
 
-router.post('/new', function(req, res) {
-  res.send('the post request was received.');
-});
-
-// pretty much all of this from
-// https://www.youtube.com/watch?v=7nafaH9SddU
-
 authExtract = function(authToken) {
     // Extract username password
 
@@ -30,6 +23,8 @@ authExtract = function(authToken) {
 }
 
 router.post('/login', function(req, res) {
+
+    // console.log(req);
 
     let authCredentials = authExtract(req.headers['authorization']);
 
@@ -94,25 +89,5 @@ router.post('/signup', function(req, res) {
         return res.json("Signup Successful!"); 
     });
 });
-
-function authenticateUser(req, res, next) {
-    const bearerHeader = req.headers['authorization'];
-
-    if(typeof bearerHeader !== 'undefined') {
-
-        const bearer = bearerHeader.split(' ');
-
-        const bearerToken = bearer[1];
-
-        req.token = bearerToken;
-
-        next();
-    } 
-    
-    else {
-        // Forbidden
-        res.sendStatus(403);
-    }
-}
 
 module.exports = router;
