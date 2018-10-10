@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ResumeData } from '../resume-data';
 import { SearchService } from '../search.service';
 
+import { of } from 'rxjs';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
@@ -33,28 +34,13 @@ export class SearchTestComponent implements OnInit {
 	
 
 	ngOnInit() {
-		this.data = this.searchTerms.debounceTime(200)
-			.distinctUntilChanged()
-			.switchMap(term => term
-			? this.searchService.search(term, this.type)
-			: Observable.of<ResumeData[]>([]))
-			.catch(error => {
-				console.log(error);
-				return Observable.of<ResumeData[]>([]);
-			});
 	}
 
-	search(term: string): void {
-		this.searchTerms.next(term);
+	search(): void {
 	}
 
 	displayData(data: ResumeData): void {
 		this.displayedData = data;
 		this.select.emit(data);
-	}
-
-	searchBy(type: string): void {
-		this.type = type;
-		this.search('');
 	}
 }

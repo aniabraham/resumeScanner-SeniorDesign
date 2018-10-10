@@ -10,23 +10,23 @@ export class AuthService {
 
 	constructor(private http: Http) {}
 
-	authenticateUser(usercreds) {
+	public authenticateUser(usercreds) {
 		var headers = new Headers();
 
-		headers.append('Access-Control-Allow-Origin', '*');
 		headers.append('Authorization', 'Basic ' + usercreds);
 		headers.append("Content-Type",  "application/x-www-form-urlencoded");
 
 		// need to change to direct to project server, as well as encrypt information
 		return new Promise((resolve) => {
 			this.http.post(this.baseUrl, {}, {headers: headers}).subscribe((data) => {
-				console.log(data.json().token);
-				window.localStorage.setItem('auth_key', data.json().token);
-				this.isAuthenticated = true;
-			
-				resolve(this.isAuthenticated);
+				
+				if (data.json().token) {
+					window.localStorage.setItem('auth_key', data.json().token);
+					this.isAuthenticated = true;
 				}
-			)
+				
+				resolve(this.isAuthenticated);
+			});
 		});
 	}
 
@@ -35,6 +35,11 @@ export class AuthService {
 			return window.localStorage.getItem('auth_key');
 		else
 			return undefined;
+	}
+
+	public logout(): void {
+		this.isAuthenticated = false;
+		window.localStorage.setItem('auth_key', undefined);
 	}
 
 	public getAuth(): boolean {

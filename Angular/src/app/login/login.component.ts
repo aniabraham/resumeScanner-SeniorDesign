@@ -27,15 +27,16 @@ export class LoginComponent implements OnInit {
 
 		let loginCreds = btoa($('#usr').val() + ':' + $('#pss').val());
 
-		this.authService.authenticateUser(loginCreds);
+		this.authService.authenticateUser(loginCreds).then((success) => {	
+			// if login fails
+			if (!success) {
+				this.loginFailed = true;
+				return;
+			}
 
-		// on success
-		if (this.authService.getAuth) {
 			this.loginFailed = false;
 			this.router.navigate(['/resumes']);
-		}
-		else
-			this.loginFailed = true;
+		});
 	}
 
 	onSignup() {
