@@ -1,21 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { ResumeData } from './resume-data';
+import { AuthService } from './auth.service';
 
-let baseUrl:string = 'http://127.0.0.1/resume/search';
+let baseUrl:string = 'http://127.0.0.1:3000/resume/search';
 
 @Injectable()
 export class SearchService {
 
-	constructor(private http: Http) { }
+	constructor(private http: Http, private authService: AuthService) { }
 
-	search(body: any): Observable<ResumeData[]> {
+	search(body: any): Promise<ResumeData[]> {
 
-		return this.http.post(`${baseUrl}`, body)
-			.map(response => response.json() as ResumeData[]);
+		let headers = new Headers();
+
+		headers.append('authorization', 'Bearer ' 
+			+ this.authService.getToken());
+
+		return this.http.post(`${baseUrl}`, body, {headers: headers})
+			.map(response => response.json().results as ResumeData[]).toPromise();
 	}
 }

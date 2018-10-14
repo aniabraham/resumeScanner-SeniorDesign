@@ -11,7 +11,7 @@ export class AuthService {
 	constructor(private http: Http) {}
 
 	public authenticateUser(usercreds) {
-		var headers = new Headers();
+		let headers = new Headers();
 
 		headers.append('Authorization', 'Basic ' + usercreds);
 		headers.append("Content-Type",  "application/x-www-form-urlencoded");

@@ -8,7 +8,9 @@
 						<div class="col-lg-6">
 							<div class="form-group">
   								<label for="usr">Username:</label>
-  								<input type="text" class="form-control" placeholder="Enter Username" id="usr">
+								  <input type="text" class="form-control" 
+								  placeholder="Enter Username" id="usr"
+								  (keyup.enter)="onLogin()">
 							</div>
 						</div>
 					</div>
@@ -16,7 +18,9 @@
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label for="pss">Password:</label>
-								<input type="password" class="form-control" placeholder="Enter Password" id="pss">
+								<input type="password" class="form-control" 
+								placeholder="Enter Password" id="pss"
+								(keyup.enter)="onLogin()">
 							</div>
 						</div>
 					</div>
@@ -24,14 +28,13 @@
 				<div class="row" *ngIf="loginFailed">
 					<div class="col-lg-6">
 						<div class="alert alert-warning"> 
-							<!-- Probably want to change this to detect specifically username or password. -->
 							Your login was unsuccessful. Please try again.
 						</div>
 					</div>
 				</div>
 				<br>
 
-				<button class="btn btn-default" (click)="onLogin($event)">
+				<button class="btn btn-default" (click)="onLogin()">
 					Login
 				</button>
 				<button class="btn btn-default" (click)="onSignup()" 

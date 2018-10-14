@@ -27,16 +27,36 @@ export class SearchTestComponent implements OnInit {
 
 	@Output() select: EventEmitter<ResumeData> = new EventEmitter<ResumeData>();
 
-	data: Observable<ResumeData[]>;
+	data: ResumeData[];
 	private searchTerms = new Subject<string>();
 	private displayedData: ResumeData;
 	private type: string = 'name';
+
+	private searchBoxes = {
+		'name': '#nameSearch',
+		'keywords': '#skillSearch',
+		'education.gpa': '#gpaSearch'
+	};
 	
 
 	ngOnInit() {
 	}
 
-	search(): void {
+	onSearch(): void {
+		// take parameters from search inputs
+		let searchParams = {};
+
+		for (var i in this.searchBoxes) {
+			if ($(this.searchBoxes[i]).val() !== '')
+				searchParams[i] = $(this.searchBoxes[i]).val();
+		}
+
+		if (searchParams['keywords'] !== undefined)
+			searchParams['keywords'] = searchParams['keywords'].split(',');
+
+		this.searchService.search(searchParams).then(results => {
+			this.data = results;
+		});
 	}
 
 	displayData(data: ResumeData): void {

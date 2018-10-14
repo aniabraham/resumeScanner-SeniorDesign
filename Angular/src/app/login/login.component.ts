@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	onLogin(event) {
+	onLogin() {
 		// attempt to login
 		// if bad login returned, loginFailed = true
 		// otherwise = false
