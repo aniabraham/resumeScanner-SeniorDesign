@@ -28,7 +28,8 @@ router.post('/new', verifyToken, function(req, res, next) {
                 }
             });
 
-            let multerUpload = multer({storage: multerStorage}).single('resume');
+            let multerUpload = 
+                multer({storage: multerStorage}).single('resume');
 
             multerUpload(req, res, err => {
 
