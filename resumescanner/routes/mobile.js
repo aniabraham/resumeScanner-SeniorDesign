@@ -1,7 +1,10 @@
-var express = require('express');
-var router = express.Router();
-var verifyToken = require('../middleware/verify');
-var jwt = require('jsonwebtoken');
+let express = require('express');
+let router = express.Router();
+let verifyToken = require('../middleware/verify');
+let jwt = require('jsonwebtoken');
+let multer = require('multer');
+
+let currentImage = '';
 
 router.post('/new', verifyToken, function(req, res, next) {
 
@@ -10,7 +13,38 @@ router.post('/new', verifyToken, function(req, res, next) {
             res.sendStatus(403);
 
         else {
-            res.send('the post request was received.');
+            currentImage = (String(Date.now()) 
+                      +  String(Math.floor(Math.random() * 10))
+                      +  String(Math.floor(Math.random() * 10))
+                      +  '.png');
+
+            let multerStorage = multer.diskStorage({
+                destination: function(req, file, callback) {
+                    callback(null, __dirname + '/../images/');
+                },
+
+                filename: function(req, file, callback) {
+                    callback(null, currentImage);
+                }
+            });
+
+            let multerUpload = multer({storage: multerStorage}).single('resume');
+
+            multerUpload(req, res, err => {
+
+                if (err) {
+                    res.json(err);
+                }
+                else {
+                    res.json({
+                        success: true,
+                        message: "Upload Successful."
+                    });
+                }
+            });
+
+            // Do the image proccessing stuff with new file name
+            // save data with path to image in mongo
         }
     });
 });
