@@ -4,7 +4,6 @@ import { routes } from './app.router';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { AuthService } from './auth.service';
 
 import { AppComponent } from './app.component';
