@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 import { ResumeData } from './resume-data';
 import { AuthService } from './auth.service';
@@ -20,7 +20,7 @@ export class SearchService {
 		headers.append('authorization', 'Bearer ' 
 			+ this.authService.getToken());
 
-		return this.http.post(`${baseUrl}`, body, {headers: headers})
-			.map(response => response.json().results as ResumeData[]).toPromise();
+		return this.http.post(`${baseUrl}`, body, {headers: headers}).pipe(
+			map(response => response.json().results as ResumeData[])).toPromise();
 	}
 }
