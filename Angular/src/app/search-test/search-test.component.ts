@@ -31,6 +31,10 @@ export class SearchTestComponent implements OnInit {
 	ngOnInit() {
 	}
 
+	onClear(): void {
+		this.data = null;
+	}
+
 	onSearch(): void {
 		// take parameters from search inputs
 		let searchParams = {};

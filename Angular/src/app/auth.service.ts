@@ -4,7 +4,7 @@ import { Http, Headers } from '@angular/http';
 @Injectable()
 export class AuthService {
 
-	private baseUrl = 'http://127.0.0.1:3000/authentication/login'
+	private baseUrl = 'http://127.0.0.1:3000/authentication/'
 
 	private isAuthenticated: boolean = false;
 
@@ -18,7 +18,7 @@ export class AuthService {
 
 		// need to change to direct to project server, as well as encrypt information
 		return new Promise((resolve) => {
-			this.http.post(this.baseUrl, {}, {headers: headers}).subscribe((data) => {
+			this.http.post(this.baseUrl + 'login', {}, {headers: headers}).subscribe((data) => {
 				
 				if (data.json().token) {
 					window.localStorage.setItem('auth_key', data.json().token);
@@ -28,6 +28,18 @@ export class AuthService {
 				resolve(this.isAuthenticated);
 			});
 		});
+	}
+
+	public createUser(usercreds): void {
+		let headers = new Headers();
+
+		headers.append('Authorization', 'Basic ' + usercreds);
+		headers.append("Content-Type",  "application/x-www-form-urlencoded");
+
+		this.http.post(this.baseUrl + 'signup', {}, {headers: headers})
+			.subscribe(data => {
+				console.log(data);
+			});
 	}
 
 	public getToken(): string {

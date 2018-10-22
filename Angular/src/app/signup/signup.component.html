@@ -1,19 +1,37 @@
 <div class="container">
-	
+		
 		<div class="form">
 			<div class="form-group">
-				<label for="name">Name:</label>
-				<input type="text" class="form-control" placeholder="Enter Name" id="name">
+				<label for="username">Username:</label>
+				<input #username type="text" class="form-control" 
+					placeholder="Enter Username" id="username">
 				
-				<label for="email">Email:</label>
-				<input type="text" class="form-control" placeholder="Enter Email" id="email">
+				<label for="password">Password:</label>
+				<input #password type="password" class="form-control" 
+					placeholder="Enter Password" id="password"
+					(keyup)="checkPass(password.value, password2.value)">
 
-				<label for="phone">Phone Number:</label>
-				<input #pass1 class="form-control" placeholder="Enter PhoneNumber" id="phone">
-
-				<label for="pss2">GPA:</label>
-				<input #pass2 class="form-control" placeholder="Enter GPA" id="pss2">
+				<label for="password2">Confirm Password:</label>
+				<input #password2 type="password" class="form-control" 
+					placeholder="Confirm Password" id="password 2"
+					(keyup)="checkPass(password.value, password2.value)">
+				<div class="input-group-addon">
+					<i *ngIf="passMatch" class="glyphicon glyphicon-ok"
+						style="color:#4dac26">Passwords match</i>
+					<i *ngIf="passMiss" class="glyphicon glyphicon-remove"
+						style="color:#d7191c">Passwords do not match</i>
+				</div>
 			</div>
 		</div>
-	
+
+		<div class="formButtons">
+			<button class="btn btn-success" (click)="onConfirm()"
+				data-dismiss="modal">
+				Confirm
+			</button>
+			<button class="btn btn-default" (click)="onCancel()"
+				data-dismiss="modal">
+				Cancel
+			</button>
+		</div>	
 </div>

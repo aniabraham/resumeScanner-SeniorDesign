@@ -6,11 +6,11 @@ var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://127.0.0.1:27017/resumes');
 
-authExtract = function(authToken) {
+authExtract = function(authToken, res) {
     // Extract username password
 
     if (authToken.split(' ')[0] !== 'Basic') {
-        return res.json("The Authorization header is either empty or isn't Basic.");
+        return 0;
     }
 
     let authString = authToken.split(' ')[1];
@@ -27,6 +27,10 @@ router.post('/login', function(req, res) {
     // console.log(req);
 
     let authCredentials = authExtract(req.headers['authorization']);
+
+    if (authCredentials === 0) 
+        return res.json("The Authorization header is either empty or isn't Basic.");
+
 
     let authUser = authCredentials.username;
     let authPass = authCredentials.password;
@@ -59,6 +63,9 @@ router.post('/login', function(req, res) {
 router.post('/signup', function(req, res) {
 
     let authCredentials = authExtract(req.headers['authorization']);
+
+    if (authCredentials === 0) 
+        return res.json("The Authorization header is either empty or isn't Basic.");
 
     let authUser = authCredentials.username;
     let authPass = authCredentials.password;

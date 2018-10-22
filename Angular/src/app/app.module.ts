@@ -14,7 +14,6 @@ import 'hammerjs';
 import { SearchTestComponent } from './search-test/search-test.component';
 import { TGamPDFComponent } from './tgam-pdf/tgam-pdf.component';
 import { TGamTableComponent } from './tgam-table/tgam-table.component';
-import { FormViewerComponent } from './form-viewer/form-viewer.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ResumeViewerComponent } from './resume-viewer/resume-viewer.component';
@@ -28,7 +27,6 @@ import { SignupComponent } from './signup/signup.component';
 		SearchTestComponent,
 		TGamPDFComponent,
 		TGamTableComponent,
-		FormViewerComponent,
 		LoginComponent,
 		ProfileComponent,
 		ResumeViewerComponent,

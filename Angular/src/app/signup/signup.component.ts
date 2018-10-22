@@ -1,6 +1,8 @@
 import 'jquery';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
+import { AuthService } from '../auth.service';
+
 declare let $: any;
 @Component({
   selector: 'app-signup',
@@ -9,13 +11,13 @@ declare let $: any;
 })
 export class SignupComponent implements OnInit {
 
-    @Output() data: EventEmitter<JSON> = new EventEmitter<JSON>();
+    @Output() exit: EventEmitter<void> = new EventEmitter<void>();
 
     // Displaying the indicator that the passwords do or do not match
     private passMatch: boolean = false;
     private passMiss: boolean = false;
 
-    constructor() { }
+    constructor(private authService: AuthService) { }
 
     ngOnInit() {
     }
@@ -23,6 +25,7 @@ export class SignupComponent implements OnInit {
     onCancel() {
       
       $(':input').val('');
+      this.exit.emit();
     }
 
     checkPass(pass1, pass2) {
@@ -38,6 +41,11 @@ export class SignupComponent implements OnInit {
 
     onConfirm() {
 
-      this.onCancel();
+      let signupCreds = btoa($('#username').val() + ':' 
+        + $('#password').val());
+
+      this.authService.createUser(signupCreds);
+
+      this.exit.emit();
     }
 }

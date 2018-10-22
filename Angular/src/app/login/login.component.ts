@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	onLogin() {
+	onLogin():void {
 		// attempt to login
 		// if bad login returned, loginFailed = true
 		// otherwise = false
@@ -37,6 +37,10 @@ export class LoginComponent implements OnInit {
 			this.loginFailed = false;
 			this.router.navigate(['/resumes']);
 		});
+	}
+
+	onExit(): void {
+		$('#signupModal').modal('hide');
 	}
 
 	onSignup() {
