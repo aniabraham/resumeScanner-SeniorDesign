@@ -45,14 +45,12 @@ router.post('/new', verifyToken, function(req, res, next) {
 
             const tesseract = spawn('python', 
                 [
-                    '../../../../../student/testing/shell.py',
+                    '~/testing/shell.py',
                     __dirname,
                     currentImage
                 ]);
                     
             tesseract.on('exit', function (code, signal) {
-                console.log(__dirname + '/' + currentImage);
-
                 return res.json('success!');
             });
         }
