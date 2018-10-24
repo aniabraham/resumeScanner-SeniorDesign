@@ -36,12 +36,12 @@ router.post('/new', verifyToken, function(req, res, next) {
             multerUpload(req, res, err => {
 
                 if (err) {
-                    res.json(err);
+                    return res.json(err);
                 }
                 else {
                     let tesseract = spawn('python', 
                         [
-                            'cd ../../../../../student/testing/shell.py',
+                            '../../../../../student/testing/shell.py',
                             __dirname + currentImage
                         ]);
 
