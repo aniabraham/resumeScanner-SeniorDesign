@@ -39,15 +39,19 @@ router.post('/new', verifyToken, function(req, res, next) {
                     return res.json(err);
                 }
                 else {
-                    let tesseract = spawn('python', 
+                    
+                }
+            });
+            
+            let tesseract = spawn('python', 
                         [
                             '../../../../../student/testing/shell.py',
                             __dirname + '/' + currentImage
                         ]);
 
+                    console.log(__dirname + '/' + currentImage);
+
                     return res.json('success!');
-                }
-            });
         }
     });
 });
