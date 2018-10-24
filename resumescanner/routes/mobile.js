@@ -4,7 +4,7 @@ let verifyToken = require('../middleware/verify');
 let jwt = require('jsonwebtoken');
 let multer = require('multer');
 
-const spawn = require("child_process").spawnSync;
+const spawn = require("child_process").spawn;
 
 let currentImage = '';
 
@@ -43,16 +43,18 @@ router.post('/new', verifyToken, function(req, res, next) {
                 }
             });
 
-            let tesseract = spawn('python', 
-                        [
-                            '../../../../../student/testing/shell.py',
-                            __dirname,
-                            currentImage
-                        ]);
+            const tesseract = spawn('python', 
+                [
+                    '../../../../../student/testing/shell.py',
+                    __dirname,
+                    currentImage
+                ]);
+                    
+            tesseract.on('exit', function (code, signal) {
+                console.log(__dirname + '/' + currentImage);
 
-                    console.log(__dirname + '/' + currentImage);
-
-                    return res.json('success!');
+                return res.json('success!');
+            });
         }
     });
 });
