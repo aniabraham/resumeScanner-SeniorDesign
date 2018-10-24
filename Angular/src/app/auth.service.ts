@@ -4,7 +4,7 @@ import { Http, Headers } from '@angular/http';
 @Injectable()
 export class AuthService {
 
-	private baseUrl = 'http://127.0.0.1:3000/authentication/'
+	private baseUrl = 'http://10.171.204.172:3000/authentication/'
 
 	private isAuthenticated: boolean = false;
 

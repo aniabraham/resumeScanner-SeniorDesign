@@ -4,6 +4,8 @@ let verifyToken = require('../middleware/verify');
 let jwt = require('jsonwebtoken');
 let multer = require('multer');
 
+const spawn = require("child_process").spawnSync;
+
 let currentImage = '';
 
 router.post('/new', verifyToken, function(req, res, next) {
@@ -37,15 +39,15 @@ router.post('/new', verifyToken, function(req, res, next) {
                     res.json(err);
                 }
                 else {
-                    res.json({
-                        success: true,
-                        message: "Upload Successful."
-                    });
+                    let tesseract = spawn('python', 
+                        [
+                            'cd ../../../../../student/testing/shell.py',
+                            __dirname + currentImage
+                        ]);
+
+                    return res.json('success!');
                 }
             });
-
-            // Do the image proccessing stuff with new file name
-            // save data with path to image in mongo
         }
     });
 });
