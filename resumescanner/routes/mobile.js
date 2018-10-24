@@ -42,7 +42,7 @@ router.post('/new', verifyToken, function(req, res, next) {
                     let tesseract = spawn('python', 
                         [
                             '../../../../../student/testing/shell.py',
-                            __dirname + currentImage
+                            __dirname + '/' + currentImage
                         ]);
 
                     return res.json('success!');
