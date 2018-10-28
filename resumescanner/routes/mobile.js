@@ -7,14 +7,18 @@ let multer = require('multer');
 const spawn = require("child_process").spawn;
 
 let currentImage = '';
-var goodEnv = { 
-  SHELL: '/bin/bash',
-  LIBRARY_PATH: '/home/student/.sources/lib:/home/student/.sources/lib64:/home/student/.sources/lib:/home/student/.sources/lib64:',
-  TESSDATA_PREFIX: '/home/student/tesseract-3.05.02/tessdata',
-  INSTALL_PREFIX: '/home/student/.sources',
-  LD_LIBRARY_PATH: '/home/student/.sources/lib:/home/student/.sources/lib:',
-  PATH: '/home/student/.sources/bin:/home/student/.sources/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin',
-  }
+var tesseractEnv = { 
+    SHELL: '/bin/bash',
+    LIBRARY_PATH: '/home/student/.sources/lib:/home/student/.sources/lib64:/'
+                + 'home/student/.sources/lib:/home/student/.sources/lib64:',
+    TESSDATA_PREFIX: '/home/student/tesseract-3.05.02/tessdata',
+    INSTALL_PREFIX: '/home/student/.sources',
+    LD_LIBRARY_PATH: '/home/student/.sources/lib:/home/student/.sources/lib:',
+    PATH: '/home/student/.sources/bin:/home/student/.sources/bin:/usr/local/'
+        + 'sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/'
+        + 'local/games:/snap/bin',
+}
+
 router.post('/new', verifyToken, function(req, res, next) {
 
     jwt.verify(req.token, 'bananabread', (err, authData) => {
@@ -50,9 +54,12 @@ router.post('/new', verifyToken, function(req, res, next) {
                 }
             });
 
-let newEnv = {};
-for (key in process.env) newEnv[key] = process.env[key];
-for (key in goodEnv) newEnv[key] = goodEnv[key];
+            let newEnv = {};
+            // copy current process environment variables in
+            for (key in process.env) newEnv[key] = process.env[key];
+
+            // overwrite necessary variables for tesseract execution
+            for (key in tesseractEnv) newEnv[key] = tesseractEnv[key];
             const tesseract = spawn('python', 
                 [
                     '/home/student/testing/shelltest.py',
@@ -65,9 +72,6 @@ for (key in goodEnv) newEnv[key] = goodEnv[key];
                 });
                     
             tesseract.on('exit', function (code, signal) {
-                console.log('exit code:' + code);
-		console.log(currentImage);
-                console.log('exit signal:' + signal);
                 return res.json('success!');
             });
         }
