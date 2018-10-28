@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import 'hammerjs';
 import { SearchTestComponent } from './search-test/search-test.component';
 import { TGamPDFComponent } from './tgam-pdf/tgam-pdf.component';
-eraimport { TGamTableComponent } from './tgam-table/tgam-table.component';
+import { TGamTableComponent } from './tgam-table/tgam-table.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ResumeViewerComponent } from './resume-viewer/resume-viewer.component';

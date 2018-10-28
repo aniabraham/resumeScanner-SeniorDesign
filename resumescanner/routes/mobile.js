@@ -46,9 +46,14 @@ router.post('/new', verifyToken, function(req, res, next) {
             const tesseract = spawn('python', 
                 [
                     '/home/student/testing/shell.py',
-                    __dirname + '../images',
+                    __dirname + '/../images',
                     currentImage
-                ]);
+                ],
+                {
+                    shell: true,
+                    env: {TESSDATA_PREFIX: 
+                            '/home/student/tesseract-3.05.02/tessdata'},
+                });
                     
             tesseract.on('exit', function (code, signal) {
                 console.log('exit code:' + code);
