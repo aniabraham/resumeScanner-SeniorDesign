@@ -5,7 +5,7 @@ from builtins import str
 import logging
 import os
 import pandas
-import textract
+# import textract
 
 import lib
 import field_extraction
@@ -30,32 +30,28 @@ def main():
 
     pass
 
-
-def text_extract_utf8(f):
-    try:
-        return str(textract.process(f), "utf-8")
-    except UnicodeDecodeError as e:
-        return ''
-
 def extract():
     logging.info('Begin extract')
     
-    # Reference variables
+    """
+    # Use for batch parsing
     candidate_file_agg = list()
 
-    # Create list of candidate files
     for root, subdirs, files in os.walk(lib.get_conf('resume_directory')):
         folder_files = map(lambda x: os.path.join(root, x), files) # [os.path.join(root, x) for x in files]
         candidate_file_agg.extend(folder_files)
-
+	"""
+	
+	candidate_file = os.listdir("/home/student/testing")
+	
     # Convert list to a pandas DataFrame
-    observations = pandas.DataFrame(data=candidate_file_agg, columns=['file_path'])
-    logging.info('Found {} candidate files'.format(len(observations.index)))
+    observations = pandas.DataFrame(data=candidate_file, columns=['file_path'])
+    logging.info('Found {} candidate file(s)'.format(len(observations.index)))
 
     # Subset candidate files to supported extensions
     observations['extension'] = observations['file_path'].apply(lambda x: os.path.splitext(x)[1])
     observations = observations[observations['extension'].isin(lib.AVAILABLE_EXTENSIONS)]
-    logging.info('Took candidate files with appropriate file formats. {} files remain'.
+    logging.info('Took candidate file(s) with appropriate file format(s). {} file(s) remain'.
                  format(len(observations.index)))
 
     with open('../data/input/example_resumes/ru_resume.txt', 'r') as cv: # needs to be utf-8 encoded
@@ -81,7 +77,10 @@ def transform(observations, nlp):
     # Extract contact fields
     observations['email'] = observations['text'].apply(lambda x: lib.term_match(x, field_extraction.EMAIL_REGEX))
     observations['phone'] = observations['text'].apply(lambda x: lib.term_match(x, field_extraction.PHONE_REGEX))
-
+	
+	# Extract GPA
+	observations['GPA'] = observations['text'].apply(lambda x: lib.term_match(x, field_extraction.GPA_REGEX)
+	
     # Extract skills
     observations = field_extraction.extract_fields(observations)
 
@@ -94,12 +93,21 @@ def transform(observations, nlp):
 def load(observations, nlp):
     logging.info('Begin load')
     output_path = os.path.join(lib.get_conf('summary_output_directory'), 'resume_summary.csv')
-
+	json_path = '/data/output/resume_summary.json'
+	
     logging.info('Results being output to {}'.format(output_path))
-    print('Results output to {}'.format(output_path))
+    # print('Results output to {}'.format(output_path))
 
-    observations.to_csv(path_or_buf=output_path, index_label='index', encoding='utf-8', sep=";")
-    logging.info('End transform')
+    # observations.to_csv(path_or_buf=output_path, index_label='index', encoding='utf-8', sep=";")
+    observations.to_json(orient='records', path_or_buf=json_path)
+    
+    # Send JSON to stdout to be handled by Node.JS
+    print(observations)
+    
+    # Remove tesseract output files to save space
+    os.remove("/home/student/testing/*.txt")
+    
+    logging.info('End load')
     pass
 
 
