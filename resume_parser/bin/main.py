@@ -42,8 +42,8 @@ def extract():
         candidate_file_agg.extend(folder_files)
 	"""
 	
-	candidate_file = os.listdir("/home/student/testing")
-	
+	candidate_file = sys.argv[1]
+		
     # Convert list to a pandas DataFrame
     observations = pandas.DataFrame(data=candidate_file, columns=['file_path'])
     logging.info('Found {} candidate file(s)'.format(len(observations.index)))
@@ -54,7 +54,7 @@ def extract():
     logging.info('Took candidate file(s) with appropriate file format(s). {} file(s) remain'.
                  format(len(observations.index)))
 
-    with open('../data/input/example_resumes/ru_resume.txt', 'r') as cv: # needs to be utf-8 encoded
+    with open(candidate_file, 'r') as cv: # needs to be utf-8 encoded
         text = cv.read()
 
     # Attempt to extract text from files
@@ -91,9 +91,13 @@ def transform(observations, nlp):
 
 
 def load(observations, nlp):
+
+	# Extract file name from path
+	filename = os.path.basename(sys.argv[1])
+
     logging.info('Begin load')
     output_path = os.path.join(lib.get_conf('summary_output_directory'), 'resume_summary.csv')
-	json_path = '/data/output/resume_summary.json'
+	json_path = os.path.splitext(filename)[0] + '.json'
 	
     logging.info('Results being output to {}'.format(output_path))
     # print('Results output to {}'.format(output_path))
@@ -103,9 +107,6 @@ def load(observations, nlp):
     
     # Send JSON to stdout to be handled by Node.JS
     print(observations)
-    
-    # Remove tesseract output files to save space
-    os.remove("/home/student/testing/*.txt")
     
     logging.info('End load')
     pass
