@@ -5,7 +5,7 @@ data_schema_dir: ../data/schema
 extractors:
  experience:
   - intern
-  - [developer, software developer, software engineer, dev]
+  - [developer, software developer, software engineer, engineer]
   - [Teacher, teaching assistant, professor, instructor]
 
  platforms:
@@ -16,7 +16,7 @@ extractors:
  database:
   - SQL
   - MySQL
-  - [Postgres, Postgresql]
+  - [Postgres, Postgresql, PostgreSQL]
   - Oracle
   - [MongoDB, Mongo]
 
@@ -52,13 +52,7 @@ extractors:
   - French
   - [Chinese, Mandarin, Cantonese]
 
- hobbies:
-  - [swimming, swim]
-  - [soccer, football]
-  - painting
-  - reading
-
- open-source:
+ version-control:
   - github
   - bitbucket
   - gitlab
