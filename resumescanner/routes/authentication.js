@@ -9,6 +9,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/resumes');
 authExtract = function(authToken, res) {
     // Extract username password
 
+    if (authToken === null || authToken === undefined) {
+        return res.json("No Authorization header was provided.");
+    }
+
     if (authToken.split(' ')[0] !== 'Basic') {
         return 0;
     }

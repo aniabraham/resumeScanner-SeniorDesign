@@ -7,6 +7,9 @@ let multer = require('multer');
 const spawn = require("child_process").spawn;
 
 let currentImage = '';
+
+// These are necessary to include with the child process
+// environment variables to allow tesseract to run properly
 var tesseractEnv = { 
     SHELL: '/bin/bash',
     LIBRARY_PATH: '/home/student/.sources/lib:/home/student/.sources/lib64:/'
