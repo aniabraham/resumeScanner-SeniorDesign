@@ -5,7 +5,6 @@ from builtins import str
 import logging
 import os
 import pandas
-# import textract
 
 import lib
 import field_extraction
@@ -40,10 +39,10 @@ def extract():
     for root, subdirs, files in os.walk(lib.get_conf('resume_directory')):
         folder_files = map(lambda x: os.path.join(root, x), files) # [os.path.join(root, x) for x in files]
         candidate_file_agg.extend(folder_files)
-	"""
-	
-	candidate_file = sys.argv[1]
-		
+    """
+
+    candidate_file = sys.argv[1]
+
     # Convert list to a pandas DataFrame
     observations = pandas.DataFrame(data=candidate_file, columns=['file_path'])
     logging.info('Found {} candidate file(s)'.format(len(observations.index)))
@@ -77,10 +76,10 @@ def transform(observations, nlp):
     # Extract contact fields
     observations['email'] = observations['text'].apply(lambda x: lib.term_match(x, field_extraction.EMAIL_REGEX))
     observations['phone'] = observations['text'].apply(lambda x: lib.term_match(x, field_extraction.PHONE_REGEX))
-	
-	# Extract GPA
-	observations['GPA'] = observations['text'].apply(lambda x: lib.term_match(x, field_extraction.GPA_REGEX)
-	
+
+    # Extract GPA
+    observations['GPA'] = observations['text'].apply(lambda x: lib.term_match(x, field_extraction.GPA_REGEX)
+
     # Extract skills
     observations = field_extraction.extract_fields(observations)
 
@@ -92,13 +91,13 @@ def transform(observations, nlp):
 
 def load(observations, nlp):
 
-	# Extract file name from path
-	filename = os.path.basename(sys.argv[1])
+    # Extract file name from path
+    filename = os.path.basename(sys.argv[1])
 
     logging.info('Begin load')
     output_path = os.path.join(lib.get_conf('summary_output_directory'), 'resume_summary.csv')
-	json_path = os.path.splitext(filename)[0] + '.json'
-	
+    json_path = os.path.splitext(filename)[0] + '.json'
+
     logging.info('Results being output to {}'.format(output_path))
     # print('Results output to {}'.format(output_path))
 
