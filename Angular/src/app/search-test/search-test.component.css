@@ -1,4 +1,15 @@
 p {
-	font-size: 25px;
-	font-weight: bold;
+	font-size: 12px;
+}
+
+a {
+	cursor: pointer;
+}
+
+.input-group-prepend {
+	cursor: pointer;
+}
+
+.input-group-text {
+	cursor: pointer;
 }

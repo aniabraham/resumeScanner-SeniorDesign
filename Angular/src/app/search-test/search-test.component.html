@@ -6,34 +6,37 @@
 
 					<label class="sr-only" for="nameSearch"></label>
 					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-					<div class="input-group-text">
-						<div class="input-group-prepend">Name</div>
-					</div>
+						<div class="input-group-text">
+							<div class="input-group-prepend">Name</div>
+						</div>
 						<input #nameSearch type="text" class="form-control" 
 							id="nameSearch" (keyup.enter)="onSearch()"/>
 					</div>
-				</form>
 
-				<form class="form-inline justify-content-center">
-
+					<label class="sr-only" for="emailSearch"></label>
+					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+						<div class="input-group-text">
+							<div class="input-group-prepend">Email</div>
+						</div>
+						<input #emailSearch type="text" class="form-control" 
+							id="emailSearch" (keyup.enter)="onSearch()"/>
+					</div>
+				
 					<label class="sr-only" for="skillSearch"></label>
 					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-					<div class="input-group-text">
-						<div class="input-group-prepend">Skills</div>
-					</div>
+						<div class="input-group-text">
+							<div class="input-group-prepend">Skills</div>
+						</div>
 						<input #skillSearch type="text" class="form-control" 
 							id="skillSearch" placeholder="Separate skills by comma"
 							(keyup.enter)="onSearch()"/>
 					</div>
-				</form>
 				
-				<form class="form-inline justify-content-center">
-
 					<label class="sr-only" for="gpaSearch"></label>
 					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-					<div class="input-group-text">
-						<div class="input-group-prepend">GPA</div>
-					</div>
+						<div class="input-group-text">
+							<div class="input-group-prepend">GPA</div>
+						</div>
 						<input #gpaSearch type="text" class="form-control" 
 							id="gpaSearch" placeholder="Greater than"
 							(keyup.enter)="onSearch()"/>
@@ -48,9 +51,43 @@
 					Clear
 				</button>
 
-				<!--<div class="form-inline justify-content-center">
-					<input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
-				</div>-->
+				<br>
+				<div class="btn-group" role="group">
+					<div class="dropdown">
+						<button class="btn btn-secondary dropdown-toggle"
+							type="button" id="dropdownMenuButton" 
+							data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">
+							Sort by
+						</button>
+						<div class="dropdown-menu" 
+							aria-labelledby="dropdownMenuButton">
+							<a class="dropdown-item" (click)="onSort('Name')">
+								Name
+							</a>
+							<a class="dropdown-item" (click)="onSort('Email')">
+								Email
+							</a>
+							<a class="dropdown-item" (click)="onSort('GPA')">
+								GPA
+							</a>
+							<a class="dropdown-item" 
+								(click)="onSort('Experience')">
+								Total Experience
+							</a>
+							<a class="dropdown-item" (click)="onSort('Date')">
+								Date Submitted
+							</a>
+						</div>
+						<p>{{sortType}}</p>
+					</div>
+					<div class="btn btn-default" 
+						(click)="onSortChange()">
+							{{ascendingString}}
+					</div>
+				</div>
+
+				<br>
 
 				<div>
 					<div *ngIf="data" class="list-group">
@@ -64,13 +101,5 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-			<div class="jumbotron">
-				<p *ngIf="displayedData">{{displayedData.name}}:</p>
-				<div class="jumbotron">
-					<span *ngIf="displayedData" class="badge">{{displayedData.education[0].university}}, {{displayedData.education[0].gpa}}</span>
-				</div>
-			</div>
-		</div> -->
 	</div>
 </div>
