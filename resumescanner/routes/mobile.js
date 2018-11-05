@@ -75,7 +75,7 @@ router.post('/new', verifyToken, function(req, res, next) {
                 });
                     
             tesseract.on('exit', function (code, signal) {
-                return res.json('success!');
+                return res.json({success: true});
             });
         }
     });
