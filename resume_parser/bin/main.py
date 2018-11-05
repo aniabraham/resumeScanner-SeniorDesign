@@ -78,7 +78,7 @@ def transform(observations, nlp):
     observations['phone'] = observations['text'].apply(lambda x: lib.term_match(x, field_extraction.PHONE_REGEX))
 
     # Extract GPA
-    observations['GPA'] = observations['text'].apply(lambda x: lib.term_match(x, field_extraction.GPA_REGEX)
+    observations['gpa'] = observations['text'].apply(lambda x: lib.term_match(x, field_extraction.GPA_REGEX)
 
     # Extract skills
     observations = field_extraction.extract_fields(observations)
