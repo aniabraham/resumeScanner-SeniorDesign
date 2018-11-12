@@ -10,6 +10,26 @@ let currentImage = '';
 
 // These are necessary to include with the child process
 // environment variables to allow tesseract to run properly
+var parserEnv = {
+    SHELL: '/bin/bash',
+    CONDA_SHLVL: 1,
+    LIBRARY_PATH: '/home/student/.sources/lib:/home/student/.sources/lib64:/'
+                + 'home/student/.sources/lib:/home/student/.sources/lib64:',
+    INSTALL_PREFIX: '/home/student/.sources',
+    LD_LIBRARY_PATH: '/home/student/.sources/lib:/home/student/.sources/lib:',
+    PATH: '/home/student/anaconda3/envs/resume_scanner/bin:' 
+        + '/home/student/anaconda3/bin:' 
+        + '/home/student/.sources/bin:/home/student/.sources/bin:/usr/local/'
+        + 'sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/'
+        + 'local/games:/snap/bin',   
+    CONDA_PROMPT_MODIFIER: '(resume_scanner) ',
+    CONDA_EXE: '/home/student/anaconda3/bin/conda',
+    CONDA_PREFIX: '/home/student/anaconda3/envs/resume_scanner',
+    CONDA_PYTHON_EXE: '/home/student/anaconda3/bin/python',
+    CONDA_DEFAULT_ENV: 'resume_scanner',
+    _: '/home/student/anaconda3/envs/resume_scanner/bin/python'
+}
+ 
 var tesseractEnv = { 
     SHELL: '/bin/bash',
     LIBRARY_PATH: '/home/student/.sources/lib:/home/student/.sources/lib64:/'
@@ -71,20 +91,43 @@ router.post('/new', verifyToken, function(req, res, next) {
                 ],
                 {
                     shell: '/bin/bash',
-                    env: newEnv,
+                    env: newEnv
                 });
                     
             tesseract.on('exit', function (code, signal) {
                 let currentOutput = currentImage.split('.')[0] + '.txt';
+		let parsEnv = {};
+		for (key in process.env) parsEnv[key] = process.env[key];
+		for (key in parserEnv) parsEnv[key] = parserEnv[key];
                 const parser = spawn('python',
                     [
                         '/home/student/resume_parser/bin/main.py',
                         '/home/student/finished/' + currentOutput
-                    ]);
+                    ],
+		    {
+			cwd: '/home/student/resume_parser/bin',
+			shell: '/bin/bash',
+			env: parsEnv
+		    });
                 
-                parser.on('data', data => {
-                    return res.json(data);
+                parser.stdout.on('data', function(data) {
+			let response = data.toString('utf8');
+			response = response.replace('/\"/g','"');
+                    return res.json(JSON.parse(response));
                 });
+		
+		parser.stderr.on('data', function(data) {
+			let response = data.toString('utf8');
+			response = response.split('\"').join('"');
+                    console.log(response);
+		});
+		 parser.on('exit', function(code, signal) {
+                    console.log(code);
+                    console.log(signal);
+                });
+		parser.on('error', function(error) {
+			console.log(error);
+		});
             });
         }
     });
