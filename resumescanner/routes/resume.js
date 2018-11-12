@@ -68,11 +68,12 @@ var types = {
     'keywords': handleKeyword,
     'email': handleGeneral,
     'name': handleGeneral,
+    'phone': handleGeneral,
     '_id': handleId
 };
 
 var updateValid = [
-    'education', 'experience', 'name', 'email', 'keywords'
+    'education', 'experience', 'name', 'email', 'keywords', 'phone'
 ]
 
 var experienceValid = ['company', 'position', 'totalExperience']

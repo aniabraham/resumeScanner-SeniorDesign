@@ -17,6 +17,7 @@ const Experience = new Schema({
 const ResumeData = new Schema({
     name: String,
     email: String,
+    phone: Number,
     education: [Education],
     experience: [Experience],
 	keywords: [String],

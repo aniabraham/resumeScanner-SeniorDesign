@@ -75,7 +75,16 @@ router.post('/new', verifyToken, function(req, res, next) {
                 });
                     
             tesseract.on('exit', function (code, signal) {
-                return res.json({success: true});
+                let currentOutput = currentImage.split('.')[0] + '.txt';
+                const parser = spawn('python',
+                    [
+                        '/home/student/resume_parser/bin/main.py',
+                        '/home/student/finished/' + currentOutput
+                    ]);
+                
+                parser.on('data', data => {
+                    return res.json(data);
+                });
             });
         }
     });
