@@ -101,39 +101,47 @@ router.post('/new', verifyToken, function(req, res, next) {
                 });
                     
                 tesseract.on('exit', function (code, signal) {
-                    let currentOutput = currentImage.split('.')[0] + '.txt';
-                    let parsEnv = {};
-                    for (key in process.env) parsEnv[key] = process.env[key];
-                    for (key in parserEnv) parsEnv[key] = parserEnv[key];
-                    const parser = spawn('python',
-                        [
-                            '/home/student/resume_parser/bin/main.py',
-                            '/home/student/finished/' + currentOutput
-                        ],
-                        {
-                        cwd: '/home/student/resume_parser/bin',
-                        shell: '/bin/bash',
-                        env: parsEnv
+
+                    // if tesseract scanned successfully.
+                    if (code == 0) {
+                        let currentOutput = currentImage.split('.')[0] + '.txt';
+                        let parsEnv = {};
+                        for (key in process.env) parsEnv[key] = process.env[key];
+                        for (key in parserEnv) parsEnv[key] = parserEnv[key];
+                        const parser = spawn('python',
+                            [
+                                '/home/student/resume_parser/bin/main.py',
+                                '/home/student/finished/' + currentOutput
+                            ],
+                            {
+                            cwd: '/home/student/resume_parser/bin',
+                            shell: '/bin/bash',
+                            env: parsEnv
+                            });
+                        
+                        parser.stdout.on('data', function(data) {
+                            let response = data.toString('utf8');
+                            response = response.replace('/\"/g','"');
+                            return res.json(JSON.parse(response));
                         });
-                    
-                    parser.stdout.on('data', function(data) {
-                        let response = data.toString('utf8');
-                        response = response.replace('/\"/g','"');
-                        return res.json(JSON.parse(response));
-                    });
-            
-                    parser.stderr.on('data', function(data) {
-                        let response = data.toString('utf8');
-                        response = response.split('\"').join('"');
-                        console.log(response);
-                    });
-                    parser.on('exit', function(code, signal) {
-                            console.log(code);
-                            console.log(signal);
+                
+                        parser.stderr.on('data', function(data) {
+                            let response = data.toString('utf8');
+                            response = response.split('\"').join('"');
+                            console.log(response);
                         });
-                    parser.on('error', function(error) {
-                        console.log(error);
-                    });
+                        parser.on('exit', function(code, signal) {
+                                console.log(code);
+                                console.log(signal);
+                            });
+                        parser.on('error', function(error) {
+                            console.log(error);
+                        });
+                    }
+
+                    else {
+                        return res.json("Tesseract failed to scan.");
+                    }
                 });
         }
     });
