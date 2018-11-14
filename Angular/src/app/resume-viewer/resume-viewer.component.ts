@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Output, OnChanges, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, AfterViewChecked, EventEmitter, 
+	AfterViewInit } from '@angular/core';
 import { ResumeData } from '../resume-data';
 import { SearchService } from '../search.service';
 import 'jquery';
@@ -18,21 +19,25 @@ export class ResumeViewerComponent implements OnInit {
 	// actually an image file
 	@Input() path: string;
 	private resumeImage = null;
-	private forms = ['name', 'email'];
+	private forms = ['name', 'phone', 'email'];
 
 
   	constructor(private searchService: SearchService) {}
 	
-	ngOnChanges() {
-			/*this.searchService.getImage(this.path).then(image => {
-				if (image)
-					this.resumeImage = bypassSanitizationTrustResourceUrl(
-						"data:image/jpeg;base64,/" + image
-					);
+	ngAfterViewChecked() {
+		/*this.searchService.getImage(this.path).then(image => {
+			if (image)
+				this.resumeImage = bypassSanitizationTrustResourceUrl(
+					"data:image/jpeg;base64,/" + image
+				);
 
-				console.log(image);
-			});*/
-			this.populateForms();
+			console.log(image);
+		});*/
+		this.populateForms();
+	}
+
+	ngAfterViewInit() {
+		//this.populateForms();
 	}
 
 	private onCancel(): void {
@@ -49,12 +54,30 @@ export class ResumeViewerComponent implements OnInit {
 		params['id'] = this.resume._id;
 
 		console.log(params);
-		this.searchService.update(params);
+		//this.searchService.update(params);
 	}
 
 	private populateForms(): void {
-		for (let i = 0; i < this.forms.length; i++) {
-			$('#' + this.forms[i]).val(this.resume[this.forms[i]]);
+		for (let key in this.resume) {
+			if (key === 'education' || key === 'experience') {
+				for (let i in this.resume[key]) {
+					for (let subkey in this.resume[key][i]) {
+
+						$('#' + subkey + '' + i)
+							.val(this.resume[key][i][subkey]);
+					}
+				}
+			}
+
+			else if (key === 'keywords') {
+				for (let keyword in this.resume[key]) {
+					$('#keywords' + keyword).val(this.resume[key][keyword]);
+				}
+			}
+
+			else {
+				$('#' + key).val(this.resume[key]);
+			}
 		}
 	}
 
