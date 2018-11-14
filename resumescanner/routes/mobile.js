@@ -8,6 +8,8 @@ const spawn = require("child_process").spawn;
 
 let currentImage = '';
 
+var multerErr = false;
+
 // These are necessary to include with the child process
 // environment variables to allow tesseract to run properly
 var parserEnv = {
@@ -70,7 +72,7 @@ router.post('/new', verifyToken, function(req, res, next) {
             multerUpload(req, res, err => {
 
                 if (err) {
-                    return res.json(err);
+                    next(err);
                 }
                 else {
                     
@@ -143,7 +145,9 @@ router.post('/new', verifyToken, function(req, res, next) {
                     }
 
                     else {
-                        return res.json("Tesseract failed to scan.");
+                        return res.json(
+                            "Tesseract failed to scan with error code: " + code
+                        );
                     }
                 });
         }
