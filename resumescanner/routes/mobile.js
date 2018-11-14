@@ -99,6 +99,10 @@ router.post('/new', verifyToken, function(req, res, next) {
                     response = response.split('\"').join('"');
                     console.log(response);
                 });
+
+                tesseract.on('error', function(error) {
+                    console.log(error);
+                });
                     
                 tesseract.on('exit', function (code, signal) {
 
@@ -131,9 +135,8 @@ router.post('/new', verifyToken, function(req, res, next) {
                             console.log(response);
                         });
                         parser.on('exit', function(code, signal) {
-                                console.log(code);
-                                console.log(signal);
-                            });
+                               
+                        });
                         parser.on('error', function(error) {
                             console.log(error);
                         });
