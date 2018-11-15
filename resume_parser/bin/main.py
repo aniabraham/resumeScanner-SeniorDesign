@@ -2,9 +2,11 @@
 
 from __future__ import print_function
 from builtins import str
+import json
 import logging
 import os
 import pandas
+import sys
 
 import lib
 import field_extraction
@@ -41,7 +43,8 @@ def extract():
         candidate_file_agg.extend(folder_files)
     """
 
-    candidate_file = sys.argv[1]
+    candidate_file = list()
+    candidate_file.append(sys.argv[1])
 
     # Convert list to a pandas DataFrame
     observations = pandas.DataFrame(data=candidate_file, columns=['file_path'])
@@ -53,7 +56,7 @@ def extract():
     logging.info('Took candidate file(s) with appropriate file format(s). {} file(s) remain'.
                  format(len(observations.index)))
 
-    with open(candidate_file, 'r') as cv: # needs to be utf-8 encoded
+    with open(candidate_file[0], 'r') as cv: # needs to be utf-8 encoded
         text = cv.read()
 
     # Attempt to extract text from files
@@ -101,11 +104,11 @@ def load(observations, nlp):
     logging.info('Results being output to {}'.format(output_path))
     # print('Results output to {}'.format(output_path))
 
-    # observations.to_csv(path_or_buf=output_path, index_label='index', encoding='utf-8', sep=";")
-    observations.to_json(orient='records', path_or_buf=json_path)
+    observations.to_csv(path_or_buf=output_path, index_label='index', encoding='utf-8', sep=";")
+    print(observations.to_json(orient='records'))
     
     # Send JSON to stdout to be handled by Node.JS
-    print(observations)
+    #print(json.dumps(observations))
     
     logging.info('End load')
     pass
