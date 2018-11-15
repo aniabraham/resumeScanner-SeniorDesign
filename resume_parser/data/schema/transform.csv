@@ -6,6 +6,7 @@ candidate_name,object,observations
 email,object,observations
 phone,object,observations
 gpa,object,observations
+degree,object,observations
 experience,object,observations
 platforms,object,observations
 database,object,observations
@@ -13,5 +14,4 @@ programming,object,observations
 machinelearning,object,observations
 universities,object,observations
 languages,object,observations
-hobbies,object,observations
-open-source,object,observations
+version-control,object,observations
