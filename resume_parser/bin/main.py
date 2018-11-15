@@ -73,13 +73,13 @@ def transform(observations, nlp):
     logging.info('Begin transform')
 
     # Extract candidate name
-    observations['candidate_name'] = observations['text'].apply(lambda x:
+    observations['name'] = observations['text'].apply(lambda x:
                                                                 field_extraction.candidate_name_extractor(x, nlp))
 
     # Extract contact fields
-    observations['email'] = observations['text'].apply(lambda x: lib.term_match(x, field_extraction.EMAIL_REGEX))
     observations['phone'] = observations['text'].apply(lambda x: lib.term_match(x, field_extraction.PHONE_REGEX))
-
+    observations['email'] = observations['text'].apply(lambda x: lib.term_match(x, field_extraction.EMAIL_REGEX))
+    
     # Extract GPA
     observations['gpa'] = observations['text'].apply(lambda x: lib.term_match(x, field_extraction.GPA_REGEX))
 
@@ -103,6 +103,30 @@ def load(observations, nlp):
 
     logging.info('Results being output to {}'.format(output_path))
     # print('Results output to {}'.format(output_path))
+    
+    education = pandas.DataFrame(columns=['university', 'degree', 'gpa', 'year'])
+    experience = pandas.DataFrame(columns=['company', 'position', 'start', 'end'])
+    
+    education['university'] = observations['university'].iloc[0]
+    education['degree'] = observations['degree'].iloc[0]
+    education['gpa'] = observations['gpa'].iloc[0]
+    
+    experience['position'] = observations['jobs'].iloc[0]
+    
+    observations = observations.drop(columns=['file_path', 'extension', 'text', 'gpa', 'university', 'degree', 'jobs'])
+    
+    observations['phone'] = ''.join(observations['phone'].iloc[0]).rstrip()
+    
+    education_dict = {"university":"","degree":"","gpa":0,"year":""}
+    experience_dict = {"company":"","position":"","start":"","end":""}
+    
+    observations['education'] = [education_dict]
+    observations['experience'] = [experience_dict]
+    
+    observations['education'].iloc[0] = [education_dict]
+    observations['experience'].iloc[0] = [experience_dict]
+    
+    #df.to_dict
 
     observations.to_csv(path_or_buf=output_path, index_label='index', encoding='utf-8', sep=";")
     print(observations.to_json(orient='records'))
