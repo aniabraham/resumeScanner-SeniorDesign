@@ -3,24 +3,33 @@ summary_output_directory: ../data/output
 data_schema_dir: ../data/schema
 
 extractors:
- experience:
+ university:
+  - [UCF, University of Central Florida, Central Florida]
+  - [University of Florida]
+  - [FSU, Florida State University]
+  - [University of Miami]
+  - [Georgia Institute of Technology, Georgia Tech]
+  - [MIT, Massachussetts Institute of Technology]
+
+ degree:
+  - [Bachelor's, B.S.]
+  - [Master's, M.S.]
+  - [Associate's, A.S.]
+
+ jobs:
   - intern
   - [developer, software developer, software engineer, engineer]
   - [Teacher, teaching assistant, professor, instructor]
 
- platforms:
+ keywords:
   - Linux
   - Windows
   - [Mac, MacOS]
-
- database:
   - SQL
   - MySQL
   - [Postgres, Postgresql, PostgreSQL]
   - Oracle
   - [MongoDB, Mongo]
-
- programming:
   - [java, JavaEE]
   - C
   - C++
@@ -30,29 +39,10 @@ extractors:
   - R
   - python
   - Javascript
-
- machinelearning:
   - [sklearn, scikit-learn, sk-learn]
   - [tensorflow, tf, tensor-flow]
   - keras
   - h20
-
- universities:
-  - [UCF, University of Central Florida, Central Florida]
-  - [UF, University of Florida]
-  - [FSU, Florida State University]
-  - [UM, University of Miami]
-  - [GT, GIT, Georgia Institute of Technology, Georgia Tech]
-  - [MIT, Massachussetts Institute of Technology]
-
- languages:
-  - English
-  - German
-  - Spanish
-  - French
-  - [Chinese, Mandarin, Cantonese]
-
- version-control:
   - github
   - bitbucket
   - gitlab
