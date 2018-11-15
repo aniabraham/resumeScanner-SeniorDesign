@@ -40,6 +40,7 @@ dependencies:
   - html5lib==0.999999999
   - idna==2.6
   - olefile==0.44
+  - pandas==0.23.0
   - pathlib==1.0.1
   - pillow==4.3.0
   - pocketsphinx==0.1.3
