@@ -4,7 +4,7 @@ export class ResumeData {
 	phone: number;
 	email: string;
 	education: [{university: string, degree: string, gpa: number, year: string}];
-	experience: [{company: string, position: string, start: string, end: string }];
+	experience: [{company: string, position: string, totalExperience: number }];
 	keywords: string[];
 	path: string;
 	date: Date;
