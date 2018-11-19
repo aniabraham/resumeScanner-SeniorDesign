@@ -4,7 +4,9 @@ var Schema = mongoose.Schema;
 const Education = new Schema({
     university: String, 
     degree: String, 
-    gpa: Number
+    gpa: Number,
+    // year of graduation
+    year: Number
 });
 
 const Experience = new Schema({

@@ -55,7 +55,7 @@
 				<hr>
 
 				<h1>Education</h1>
-
+.
 				<div class="row">
 					<div *ngFor="let edu of resume.education; let i = index"
 						class="col-lg-6">
@@ -86,6 +86,15 @@
 							<input type="text" class="form-control" 
 								placeholder="Enter GPA" 
 								id="{{'gpa' + i}}">
+						</div>
+
+						<div class="form-group">
+							<label for="{{'year' + i}}">
+								Year Received:
+							</label>
+							<input type="text" class="form-control" 
+								placeholder="Enter Year" 
+								id="{{'year' + i}}">
 						</div>
 					</div>
 				</div>

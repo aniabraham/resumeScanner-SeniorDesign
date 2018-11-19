@@ -77,7 +77,7 @@ var updateValid = [
 ]
 
 var experienceValid = ['company', 'position', 'totalExperience']
-var educationValid = ['university', 'degree', 'gpa']
+var educationValid = ['university', 'degree', 'gpa', 'year']
 
 router.get('/image/:path', verifyToken, function(req, res) {
     jwt.verify(req.token, 'bananabread', (err) => {
@@ -132,8 +132,6 @@ router.put('/update', verifyToken, function(req, res) {
 
         else {
             
-            // was working here on updating arrays of education and experience
-
             var updateResume = {};
 
             updateResume['date'] = Date.now();

@@ -51,6 +51,10 @@ export class ResumeViewerComponent implements OnInit {
 			params[this.forms[i]] = $('#' + this.forms[i]).val();
 		}
 
+		params['education'] = [];
+		params['experience'] = [];
+		params['keywords'] = [];
+
 		params['id'] = this.resume._id;
 
 		console.log(params);
