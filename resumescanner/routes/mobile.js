@@ -12,6 +12,8 @@ const spawn = require("child_process").spawn;
 
 let currentImage = '';
 
+let newResume = null;
+
 var multerErr = false;
 
 // These are necessary to include with the child process
@@ -148,7 +150,9 @@ router.post('/new', verifyToken, function(req, res, next) {
                                     let response = data.toString('utf8');
                                     response = response.replace('/\"/g','"');
                                     response = JSON.parse(response);
-                                    let newResume = new ResumeModel(response);
+                                    newResume = new ResumeModel(response);
+                                    newResume['date'] = Date.now();
+                                    newResume['path'] = currentImage;
                                     newResume.save(function (err) {
                                             console.log(err);
                                         });
