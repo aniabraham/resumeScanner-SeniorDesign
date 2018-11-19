@@ -147,11 +147,12 @@ router.post('/new', verifyToken, function(req, res, next) {
                                 parser.stdout.on('data', function(data) {
                                     let response = data.toString('utf8');
                                     response = response.replace('/\"/g','"');
+                                    response = JSON.parse(response);
                                     let newResume = new ResumeModel(response);
                                     newResume.save(function (err) {
                                             console.log(err);
                                         });
-                                    return res.json(JSON.parse(response));
+                                    return res.json(response);
                                 });
                         
                                 parser.stderr.on('data', function(data) {
