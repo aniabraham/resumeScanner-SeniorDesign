@@ -1,1 +1,5 @@
-
+html, body{
+    height:100%; /* important to vertically align the container */
+    margin:0;
+    padding:0;
+}
