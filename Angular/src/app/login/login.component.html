@@ -1,33 +1,66 @@
+<div class="vertical-center" >
 <div class="container">
-	<h1 class="form-heading">login Form</h1>
-	<div class="login-form">
-	<div class="main-div">
-		<div class="panel">
-	   <h2>User Login</h2>
-	   <p>Please enter your login credentials</p>
-	   </div>
-		<form id="Login">
-			<div class="form-group">
-				<label for="usr">Username:</label>
-									  <input type="text" class="form-control" 
-									  placeholder="Enter Username" id="usr"
-									  (keyup.enter)="onLogin()">
-	
+	<div class="row">
+		<div class="col-xs-6 col-lg-6">
+			<div class="jumbotron">
+				<div class="form">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group">
+  								<label for="usr">Username:</label>
+								  <input type="text" class="form-control" 
+								  placeholder="Enter Username" id="usr"
+								  (keyup.enter)="onLogin()">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="pss">Password:</label>
+								<input type="password" class="form-control" 
+								placeholder="Enter Password" id="pss"
+								(keyup.enter)="onLogin()">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" *ngIf="loginFailed">
+					<div class="col-lg-6">
+						<div class="alert alert-warning"> 
+							Your login was unsuccessful. Please try again.
+						</div>
+					</div>
+				</div>
+				<br>
+
+				<button class="btn btn-default" (click)="onLogin()">
+					Login
+				</button>
+				<button class="btn btn-default" (click)="onSignup()" 
+					data-toggle="modal" data-target="#signupModal">Sign Up</button>
 			</div>
-	
-			<div class="form-group">
-	
-				<label for="pss">Password:</label>
-									<input type="password" class="form-control" 
-									placeholder="Enter Password" id="pss"
-									(keyup.enter)="onLogin()">
-	
-			</div>
-			<button type="submit" class="btn btn-primary" (click)="onLogin()">Login</button>
-			<p></p>
-			<button type="submit" class="btn btn-primary" (click)="onSignup()" data-toggle="modal"
-				data-target="#signupModal">Sign Up</button>
-	
-		</form>
 		</div>
-	</div></div></div>
+	</div>
+</div>
+</div>
+
+
+<div id="signupModal" tabindex="-1" class="modal hide fade"
+	aria-labelledby="myModalLabel" role="dialog">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="jumbotron">
+				<div class="modal-header">
+					<h4 class="modal-title">Please fill out the following form</h4>
+					<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">&times;
+					</button>
+				</div>
+				<div class="modal-body">
+					<app-signup (exit)="onExit()"></app-signup>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
