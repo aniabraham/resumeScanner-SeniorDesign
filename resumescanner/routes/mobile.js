@@ -3,6 +3,8 @@ let router = express.Router();
 let verifyToken = require('../middleware/verify');
 let jwt = require('jsonwebtoken');
 let multer = require('multer');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const spawn = require("child_process").spawn;
 

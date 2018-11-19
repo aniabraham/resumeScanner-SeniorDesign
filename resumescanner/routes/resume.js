@@ -9,7 +9,8 @@ const Resume = require('../models/resumes');
 const Education = new Schema({
     university: String, 
     degree: String, 
-    gpa: Number
+    gpa: Number,
+    year: Number
 });
 
 const Experience = new Schema({
