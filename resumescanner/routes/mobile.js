@@ -6,6 +6,8 @@ let multer = require('multer');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+var db = mongoose.createConnection('mongodb://127.0.0.1:27017/resumes');
+
 const spawn = require("child_process").spawn;
 
 let currentImage = '';

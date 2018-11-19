@@ -17,7 +17,7 @@ UserData.methods.validPassword = function(password) {
 }
 
 const Education = new Schema({
-    university: String, degree: String, gpa: Number
+    university: String, degree: String, gpa: Number, year: Number
 });
 
 const Experience = new Schema({
