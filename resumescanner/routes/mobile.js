@@ -44,6 +44,25 @@ var tesseractEnv = {
         + 'local/games:/snap/bin',
 }
 
+const Education = new Schema({
+    university: String, degree: String, gpa: Number, year: Number
+});
+
+const Experience = new Schema({
+    company: String, position: String, totalExperience: Number
+});
+
+const ResumeData = new Schema({
+    name: String,
+    education: [Education],
+    experience: [Experience],
+	keywords: [String],
+    path: String,
+    date: Date
+});
+
+const ResumeModel = db.model('Resume', ResumeData);
+
 router.post('/new', verifyToken, function(req, res, next) {
 
     jwt.verify(req.token, 'bananabread', (err, authData) => {
@@ -124,6 +143,10 @@ router.post('/new', verifyToken, function(req, res, next) {
                                 parser.stdout.on('data', function(data) {
                                     let response = data.toString('utf8');
                                     response = response.replace('/\"/g','"');
+                                    let newResume = new ResumeModel(response);
+                                    newResume.save(function (err) {
+                                            console.log(err);
+                                        });
                                     return res.json(JSON.parse(response));
                                 });
                         
