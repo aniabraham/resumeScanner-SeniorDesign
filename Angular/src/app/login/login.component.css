@@ -12,7 +12,7 @@ body#LoginForm{ background-image:url("https://s3-eu-west-1.amazonaws.com/sales-i
   line-height: 50px;
 }
 .main-div {
-  background: #ffffff none repeat scroll 0 0;
+  background: #000000 none repeat scroll 0 0;
   border-radius: 2px;
   margin: 10px auto 30px;
   max-width: 38%;
@@ -22,12 +22,9 @@ body#LoginForm{ background-image:url("https://s3-eu-west-1.amazonaws.com/sales-i
 .login-form .form-group {
   margin-bottom:10px;
 }
+
 .login-form{ text-align:center;}
-.forgot a {
-  color: #777777;
-  font-size: 14px;
-  text-decoration: underline;
-}
+
 .login-form  .btn.btn-primary {
   background: #86BC25 none repeat scroll 0 0;
   border-color: #86BC25;
@@ -38,16 +35,12 @@ body#LoginForm{ background-image:url("https://s3-eu-west-1.amazonaws.com/sales-i
   line-height: 50px;
   padding: 0;
 }
-.forgot {
-  text-align: left; margin-bottom:30px;
-}
+
 .botto-text {
-  color: #ffffff;
+  color: #080808;
   font-size: 14px;
   margin: auto;
 }
-.login-form .btn.btn-primary.reset {
-  background: #86BC25 none repeat scroll 0 0;
-}
+
 .back { text-align: left; margin-top:10px;}
 .back a {color: #444444; font-size: 13px;text-decoration: none;}
