@@ -150,9 +150,9 @@ router.post('/new', verifyToken, function(req, res, next) {
                                     let response = data.toString('utf8');
                                     response = response.replace('/\"/g','"');
                                     response = JSON.parse(response);
-                                    newResume = new ResumeModel(response);
-                                    newResume['date'] = Date.now();
-                                    newResume['path'] = currentImage;
+                                    response['date'] = Date.now();
+                                    response['path'] = currentImage;
+                                    newResume = new ResumeModel(response[0]);
                                     newResume.save(function (err) {
                                             console.log(err);
                                         });
