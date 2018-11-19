@@ -156,7 +156,7 @@ router.post('/new', verifyToken, function(req, res, next) {
                                     newResume.save(function (err) {
                                             console.log(err);
                                         });
-                                    return res.json(response);
+                                    return res.json(response[0]);
                                 });
                         
                                 parser.stderr.on('data', function(data) {
