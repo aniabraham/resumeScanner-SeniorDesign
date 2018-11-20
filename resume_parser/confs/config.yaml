@@ -4,16 +4,16 @@ data_schema_dir: ../data/schema
 
 extractors:
  university:
-  - [UCF, University of Central Florida, Central Florida]
+  - [University of Central Florida, UCF]
   - [University of Florida]
-  - [FSU, Florida State University]
+  - [Florida State University, FSU]
   - [University of Miami]
   - [Georgia Institute of Technology, Georgia Tech]
-  - [MIT, Massachussetts Institute of Technology]
+  - [Massachussetts Institute of Technology, MIT]
 
  degree:
-  - [Bachelor's, B.S.]
-  - [Master's, M.S.]
+  - [Bachelor's, B.S., Bachelor]
+  - [Master's, M.S., Master]
   - [Associate's, A.S.]
 
  jobs:
