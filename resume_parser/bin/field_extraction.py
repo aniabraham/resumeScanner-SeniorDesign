@@ -1,33 +1,61 @@
 from builtins import str
 import logging
 
-from gensim.utils import simple_preprocess
-
 import lib
 
-EMAIL_REGEX = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
+EMAIL_REGEX = r"([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)"
 PHONE_REGEX = r"1?\W*([2-9][0-8][0-9])\W*([2-9][0-9]{2})\W*([0-9]{4})(\se?x?t?(\d*))?"
-GPA_REGEX = r"^[0-3](\.[0-9]{1,2})?$|^4(\.[0]{1,2})?$"
+GPA_REGEX = r"[\d]\.[\d]{1,2}"
 
 
 def candidate_name_extractor(input_string, nlp):
+
     input_string = str(input_string)
 
+    tokenized_input = input_string.split()
+
+    a = 0
+    for x in tokenized_input:
+        if (a == 2):
+            break
+        if (x.isupper() & (a == 0)):
+            check = True
+            firstName = x
+        if (x.isupper() & (a == 1)):
+            check = True
+            lastName = x
+        a += 1
+        
+    if (check == False):
+        doc = nlp(input_string)
+
+        # Extract entities
+        doc_entities = doc.ents
+
+        # Takes subset of person type entities
+        doc_persons = [x for x in doc_entities if x.label_ == 'PERSON'] # filter(lambda x: x.label_ == 'PERSON', doc_entities)
+        doc_persons = [x for x in doc_persons if len(x.text.strip().split()) >= 2] # filter(lambda x: len(x.text.strip().split()) >= 2, doc_persons) 
+        doc_persons = [x.text.strip() for x in doc_persons] # list(map(lambda x: x.text.strip(), doc_persons)) 
+
+        # Assuming that the first Person entity with more than two tokens is the candidate's name
+        if doc_persons:
+            return doc_persons[0]
+        return "NOT FOUND"
+    else:
+        return firstName + ' ' + lastName
+
+def company_name_extractor(input_string, nlp):
+    
     doc = nlp(input_string)
-
-    # Extract entities
+    
     doc_entities = doc.ents
-
-    # Takes subset of person type entities
-    doc_persons = [x for x in doc_entities if x.label_ == 'PERSON'] # filter(lambda x: x.label_ == 'PERSON', doc_entities)
-    doc_persons = [x for x in doc_persons if len(x.text.strip().split()) >= 2] # filter(lambda x: len(x.text.strip().split()) >= 2, doc_persons) 
-    doc_persons = [x.text.strip() for x in doc_persons] # list(map(lambda x: x.text.strip(), doc_persons)) 
-
-    # Assuming that the first Person entity with more than two tokens is the candidate's name
-    if doc_persons:
-        return doc_persons[0]
+    
+    doc_companies = [x for x in doc_entities if x.label_ == 'ORG']
+    doc_companies = [x.text.strip() for x in doc_companies]
+    
+    if doc_companies:
+    	return doc_companies
     return "NOT FOUND"
-
 
 def extract_fields(df):
     for extractor, items_of_interest in list(lib.get_conf('extractors').items()):
