@@ -42,7 +42,9 @@ def candidate_name_extractor(input_string, nlp):
             return doc_persons[0]
         return "NOT FOUND"
     else:
-        return firstName + ' ' + lastName
+        first = firstName.lower().capitalize()
+        last = lastName.lower().capitalize()
+        return first + ' ' + last
 
 def company_name_extractor(input_string, nlp):
     
