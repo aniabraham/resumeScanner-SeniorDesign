@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+#export PATH=~/anaconda3/bin:$PATH
+#pip install -U spacy
+#python -m spacy download en
 
 from __future__ import print_function
 from builtins import str
@@ -83,6 +86,8 @@ def transform(observations, nlp):
     # Extract GPA
     observations['gpa'] = observations['text'].apply(lambda x: lib.term_match(x, field_extraction.GPA_REGEX))
 
+    #observations['company'] = observations['text'].apply(lambda x: field_extraction.company_name_extractor(x, nlp))
+
     # Extract skills
     observations = field_extraction.extract_fields(observations)
 
@@ -105,29 +110,30 @@ def load(observations, nlp):
     # print('Results output to {}'.format(output_path))
     
     education = pandas.DataFrame(columns=['university', 'degree', 'gpa', 'year'])
-    experience = pandas.DataFrame(columns=['company', 'position', 'start', 'end'])
+    experience = pandas.DataFrame(columns=['company', 'position', 'totalExperience'])
     
-    education['university'] = observations['university'].iloc[0]
-    education['degree'] = observations['degree'].iloc[0]
-    education['gpa'] = observations['gpa'].iloc[0]
+    for university, degree, gpa in zip(observations['university'].iloc[0], observations['degree'].iloc[0], observations['gpa']):
+        education = education.append({'university':university,'degree':degree, 'gpa':gpa}, ignore_index=True)
     
-    experience['position'] = observations['jobs'].iloc[0]
+    #for company in observations['company'].iloc[0]:
+        #experience.append({'company':company}, ignore_index=True)
+    
+    for job in observations['jobs'].iloc[0]:
+        experience = experience.append({'position':job}, ignore_index=True)
     
     observations = observations.drop(columns=['file_path', 'extension', 'text', 'gpa', 'university', 'degree', 'jobs'])
     
-    observations['phone'] = ''.join(observations['phone'].iloc[0]).rstrip()
+    if type(observations['phone'].iloc[0]) is tuple:
+        observations['phone'] = ''.join(observations['phone'].iloc[0]).rstrip()
     
     education_dict = {"university":"","degree":"","gpa":0,"year":""}
-    experience_dict = {"company":"","position":"","start":"","end":""}
+    experience_dict = {"company":"","position":"","totalExperience":0}
     
     observations['education'] = [education_dict]
     observations['experience'] = [experience_dict]
+    observations['education'].iloc[0] = education.to_dict('records')
+    observations['experience'].iloc[0] = experience.to_dict('records')
     
-    observations['education'].iloc[0] = [education_dict]
-    observations['experience'].iloc[0] = [experience_dict]
-    
-    #df.to_dict
-
     observations.to_csv(path_or_buf=output_path, index_label='index', encoding='utf-8', sep=";")
     print(observations.to_json(orient='records'))
     
