@@ -1,7 +1,7 @@
 export class ResumeData {
 	_id: any;
 	name: string;
-	phone: number;
+	phone: string;
 	email: string;
 	education: [{_id: any, university: string, degree: string, gpa: number, year: string}];
 	experience: [{_id: any, company: string, position: string, totalExperience: number }];
