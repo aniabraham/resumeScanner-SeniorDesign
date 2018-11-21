@@ -18,6 +18,11 @@ body#LoginForm{ background-image:url("https://s3-eu-west-1.amazonaws.com/sales-i
   padding: 50px 70px 70px 71px;
 }
 
+.containerS {
+	margin: 10px auto;
+    width: 80%;
+}
+
 .login-form .form-group {
   margin-bottom:10px;
 }
