@@ -13,14 +13,10 @@ body#LoginForm{ background-image:url("https://s3-eu-west-1.amazonaws.com/sales-i
 }
 .main-div {
   background: #ffffff none repeat scroll 0 0;
-  position: absolute;
   border-radius: 2px;
   margin: 20px auto 30px;
   padding: 50px 70px 70px 71px;
-}
-
-.containerS {
-	position: relative;
+  align-content: center;
 }
 
 .login-form .form-group {
