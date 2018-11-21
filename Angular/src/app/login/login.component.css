@@ -27,13 +27,9 @@ body#LoginForm{ background-color: #000000; background-repeat:no-repeat; backgrou
 
 .login-form  .btn.btn-primary {
   background: #86BC25 none repeat scroll 0 0;
-  border-color: #86BC25;
   color: #ffffff;
   font-size: 14px;
-  width: 100%;
-  height: 50px;
-  line-height: 50px;
-  padding: 0;
+  height: 40px;
 }
 
 .botto-text {
