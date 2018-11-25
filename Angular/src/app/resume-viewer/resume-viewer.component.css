@@ -1,3 +1,5 @@
 img {
     transform: rotate(90deg);
+    max-width: 50%;
+    height: auto;
 }
