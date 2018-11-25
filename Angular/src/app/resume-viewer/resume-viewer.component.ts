@@ -87,10 +87,12 @@ export class ResumeViewerComponent implements OnInit {
 
 	private onDelete(type: string, index: number) {
 		let deleteId = this.resumeCopy[type][index]['_id'];
-		if (type === 'education')
-			this.removeEdu.push(deleteId);
-		if (type === 'experience')
-			this.removeExp.push(deleteId);
+		if (deleteId !== 'add') {
+			if (type === 'education')
+				this.removeEdu.push(deleteId);
+			if (type === 'experience')
+				this.removeExp.push(deleteId);
+		}
 		this.resumeCopy[type].splice(index, 1);
 		this.ref.detectChanges();
 	}
