@@ -1,62 +1,39 @@
-<div class="container">
-	<div class="row">
-		<div>
-			<div class="jumbotron">
-				<form class="form-inline justify-content-center">
+<div class="containerS">
+<div class="login-form">
+<div class="main-div">
+    <div class="panel">
+   <h2>Search Resumes</h2>
+   </div>
+    <form id="Search">
+        <div class="form-group">
+                <input #nameSearch type="text" class="form-control" 
+                placeholder="Name" id="nameSearch" (keyup.enter)="onSearch()"/>
+        </div>
 
-					<label class="sr-only" for="nameSearch"></label>
-					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-						<div class="input-group-text">
-							<div class="input-group-prepend">Name</div>
-						</div>
-						<input #nameSearch type="text" class="form-control" 
-							id="nameSearch" (keyup.enter)="onSearch()"/>
-					</div>
+        <div class="form-group">
+            <input #emailSearch type="text" class="form-control" 
+							placeholder="Email" id="emailSearch" (keyup.enter)="onSearch()"/>
+        </div>
 
-					<label class="sr-only" for="emailSearch"></label>
-					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-						<div class="input-group-text">
-							<div class="input-group-prepend">Email</div>
-						</div>
-						<input #emailSearch type="text" class="form-control" 
-							id="emailSearch" (keyup.enter)="onSearch()"/>
-					</div>
-				
-					<label class="sr-only" for="skillSearch"></label>
-					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-						<div class="input-group-text">
-							<div class="input-group-prepend">Skills</div>
-						</div>
-						<input #skillSearch type="text" class="form-control" 
-							id="skillSearch" placeholder="Separate skills by comma"
-							(keyup.enter)="onSearch()"/>
-					</div>
-				
-					<label class="sr-only" for="gpaSearch"></label>
-					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-						<div class="input-group-text">
-							<div class="input-group-prepend">GPA</div>
-						</div>
-						<input #gpaSearch type="text" class="form-control" 
-							id="gpaSearch" placeholder="Greater than"
-							(keyup.enter)="onSearch()"/>
-					</div>
-				</form>
+        <div class="form-group">
+            <input #emailSearch type="text" class="form-control" 
+                        placeholder="Skills, Separated By Commas" id="skillSearch" (keyup.enter)="onSearch()"/>
+        </div>
 
-				<button class="btn btn-default" (click)="onSearch()">
-					Search
-				</button>
+        <div class="form-group">
+            <input #emailSearch type="text" class="form-control" 
+                        placeholder="GPA" id="gpaSearch" (keyup.enter)="onSearch()"/>
+        </div>
 
-				<button class="btn btn-default" (click)="onRefresh()">
-					Refresh
-				</button>
-
-				<button class="btn btn-default" (click)="onClear()">
-					Clear
-				</button>
-
-				<br>
-				<div class="btn-group" role="group">
+		<button type="submit" class="btn btn-primary pull-left" 
+			(click)="onSearch()">Search</button>
+			<button class="btn btn-primary pull-left"
+				(click)="onRefresh()">Refresh</button>
+		<button type="submit" class="btn btn-primary pull-left" 
+			(click)="onClear()">Clear</button>
+            
+    </form>
+    <div class="btn-group" role="group">
 					<div class="dropdown">
 						<button class="btn btn-secondary dropdown-toggle"
 							type="button" id="dropdownMenuButton" 
@@ -87,12 +64,9 @@
 					</div>
 					<div class="btn btn-default" 
 						(click)="onSortChange()">
-							{{ascendingString}}
+						{{ascendingString}}
 					</div>
 				</div>
-
-				<br>
-
 				<div>
 					<div *ngIf="data" class="list-group">
 						<a style="cursor: pointer; color: white;" 
@@ -103,7 +77,7 @@
 						</a>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
+    </div>
 </div>
+</div>
+
