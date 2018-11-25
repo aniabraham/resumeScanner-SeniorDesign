@@ -4,6 +4,7 @@ import { SearchService } from '../search.service';
 
 import 'jquery';
 import 'json2csv';
+declare let require: any;
 declare let $: any;
 
 @Component({
