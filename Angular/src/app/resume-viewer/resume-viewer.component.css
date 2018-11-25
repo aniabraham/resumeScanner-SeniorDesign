@@ -2,4 +2,5 @@ img {
     transform: rotate(90deg);
     max-width: 100%;
     height: auto;
+    padding-top: 100px;
 }
