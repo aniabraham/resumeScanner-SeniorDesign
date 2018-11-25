@@ -138,6 +138,8 @@ export class ResumeViewerComponent implements OnInit {
 			params['removeExp'] = this.removeExp;
 		
 		this.searchService.update(params);
+
+		console.log(params);
 		// give the server time to process the update
 		// then renew the search values.
 		let timeout = function(emitter: EventEmitter<void>) {
