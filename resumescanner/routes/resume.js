@@ -173,7 +173,6 @@ router.put('/update', verifyToken, function(req, res) {
                                 for (i in element) {
 
                                     let edu = element[i];
-                                    console.log(edu);
                                     let eduId = edu["_id"]
                                     
                                     if (eduId === "add") {
