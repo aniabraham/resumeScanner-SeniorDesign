@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
 
 	private selectedResume: ResumeData;
 	private displayName: string = '';
+	private resumeView: boolean = false;
 	private path: any;
 	private selectedPath: string = '';
 
@@ -29,12 +30,9 @@ export class ProfileComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	onUpdate() {
-
-	}
-
 	onResumeSelected(event) {
 
+		this.resumeView = true;
 		this.path = this.sanitizer.bypassSecurityTrustResourceUrl(event.path);
 		this.selectedResume = event;
 		this.selectedPath = this.selectedResume.path;

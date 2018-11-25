@@ -125,6 +125,23 @@ router.post('/search', verifyToken, function(req, res) {
     });
 });
 
+router.post('/delete', verifyToken, function(req, res) {
+    jwt.verify(req.token, 'bananabread', (err, authData) => {
+        if (err)
+            res.sendStatus(403);
+
+        else {
+            mongoose.model('resumes')
+                .findById(req.body['_id'], function(err, resume) {
+                    resume.remove(err => {
+                        if (err)
+                            return res.json(err);
+                    });
+                });
+        }
+    });
+});
+
 router.put('/update', verifyToken, function(req, res) {
 
     jwt.verify(req.token, 'bananabread', (err, authData) => {
@@ -132,13 +149,6 @@ router.put('/update', verifyToken, function(req, res) {
             res.sendStatus(403);
 
         else {
-            
-            var updateResume = {};
-
-            updateResume['date'] = Date.now();
-
-            console.log(req.body["_id"]);
-
             mongoose.model('resumes')
                 .findById(req.body['_id'], function(err, resume) {
                     if (err || resume === null || resume === undefined)
@@ -183,17 +193,14 @@ router.put('/update', verifyToken, function(req, res) {
                                         }
                                     }
                                 }
-
-                                console.log(resume.education);
                             }
                             else if (key === 'experience') {
                                 for (i in element) {
                                     let exp = element[i];
                                     let expId = exp["_id"]
                                     if (expId === "add") {
-                                        resume.experience.push(
-                                            new Experience(exp)
-                                        );
+                                        exp["_id"] = mongoose.Types.ObjectId();
+                                        resume.experience.push(exp);
                                     }
                                     else {
                                         for (x in resume.experience) {
@@ -210,6 +217,37 @@ router.put('/update', verifyToken, function(req, res) {
                             }
                             else
                                 resume[key] = req.body[key];
+                        }
+                    }
+
+                    resume['date'] = Date.now();
+
+                    // check if experience or education objects
+                    // must be removed
+
+                    if (req.body.hasOwnProperty('removeExp')) {
+                        for (let i in req.body['removeExp']) {
+                            let id = req.body['removeExp'][i];
+                            mongoose.model('resumes').updateOne(
+                                {_id: req.body['_id']},
+                                {$pull: {experience: {_id: id}}},
+                                function(err) {
+                                    console.log(err);
+                                }
+                            );
+                        }
+                    }
+
+                    if (req.body.hasOwnProperty('removeEdu')) {
+                        for (let i in req.body['removeEdu']) {
+                            let id = req.body['removeEdu'][i];
+                            mongoose.model('resumes').updateOne(
+                                {_id: req.body['_id']},
+                                {$pull: {education: {_id: id}}},
+                                function(err) {
+                                    console.log(err);
+                                }
+                            );
                         }
                     }
 

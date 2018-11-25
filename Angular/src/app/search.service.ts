@@ -6,8 +6,8 @@ import { map } from 'rxjs/operators';
 import { ResumeData } from './resume-data';
 import { AuthService } from './auth.service';
 
-// let baseUrl:string = 'http://127.0.0.1:3000/resume/';
-let baseUrl:string = 'http://10.171.204.172:3000/resume/search';
+//let baseUrl:string = 'http://127.0.0.1:3000/resume/';
+let baseUrl:string = 'http://10.171.204.172:3000/resume/';
 
 @Injectable()
 export class SearchService {
@@ -22,6 +22,16 @@ export class SearchService {
 			+ this.authService.getToken());
 
 		return this.http.post(`${baseUrl}search`, body, {headers: headers}).pipe(
+			map(response => response.json().results as ResumeData[])).toPromise();
+	}
+
+	public delete(body: any) {
+		let headers = new Headers();
+
+		headers.append('authorization', 'Bearer ' 
+			+ this.authService.getToken());
+
+		return this.http.post(`${baseUrl}delete`, body, {headers: headers}).pipe(
 			map(response => response.json().results as ResumeData[])).toPromise();
 	}
 

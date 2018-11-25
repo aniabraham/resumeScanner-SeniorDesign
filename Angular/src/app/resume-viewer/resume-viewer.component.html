@@ -1,8 +1,9 @@
 <div class="container">
 	<div class="row">
-		<div class="col-lg-6 col-xl-6 col-sm-6 col-md-6">
-			<!-- <img *ngIf="resume" [src]="resumeImage" 
-				width="99.6%" height="450px" alt=""> -->
+		<div class="col-lg-6 col-xl-6 col-sm-12 col-md-12">
+			<img *ngIf="resume" 
+				[src]="'http://10.171.204.172:3000/images/' + resumeImage" 
+				width="99.6%" height="450px">
 		</div>
 		<div class="col-lg-6 col-xl-6 col-sm-6 col-md-6">
 			<div class="form">
@@ -37,12 +38,17 @@
 				</div>
 				
 				<hr>
-
-				<h1>Keywords</h1>
+				<div class="row">
+					<h1>Keywords</h1>
+					<i class="fa fa-plus" (click)="addNew('keywords')"
+						style="cursor: pointer;color:#4dac26;"></i>
+				</div>
 				
 				<div class="row">
-					<div *ngFor="let keyword of resume.keywords; let i = index"
+					<div *ngFor="let keyword of resumeCopy.keywords; let i = index"
 						class="col-lg-6">
+						<i class="fa fa-trash" style="cursor: pointer;"
+							(click)="onDelete('keywords', i)"></i>
 						<div class="form-group">
 							<label for="{{'keywords' + i}}">Keyword:</label>
 							<input type="text" class="form-control" 
@@ -53,14 +59,17 @@
 				</div>
 
 				<hr>
-
-				<h1>Education</h1>
-.
 				<div class="row">
-					<div *ngFor="let edu of resume.education; let i = index"
+					<h1>Education</h1>
+					<i class="fa fa-plus" (click)="addNew('education')"
+						style="cursor: pointer;color:#4dac26;"></i>
+				</div>
+
+				<div class="row">
+					<div *ngFor="let edu of resumeCopy.education; let i = index"
 						class="col-lg-6">
-						<span class="glyphicon glyphicon-trash"
-							aria-hidden="true"></span>
+						<i class="fa fa-trash" style="cursor: pointer;"
+						(click)="onDelete('education', i)"></i>
 						<div class="form-group">
 							<label for="{{'university' + i}}">
 								University:
@@ -101,11 +110,17 @@
 
 				<hr>
 
-				<h1>Experience</h1>
+				<div class="row">
+					<h1>Work Experience</h1>
+					<i class="fa fa-plus" (click)="addNew('experience')"
+						style="cursor: pointer;color:#4dac26;"></i>
+				</div>
 
 				<div class="row">
-					<div *ngFor="let exp of resume.experience; let i = index"
+					<div *ngFor="let exp of resumeCopy.experience; let i = index"
 						class="col-lg-6">
+						<i class="fa fa-trash" style="cursor: pointer;"
+							(click)="onDelete('experience', i)"></i>
 						<div class="form-group">
 							<label for="{{'company' + i}}">
 								Company:
@@ -143,6 +158,9 @@
 				</button>
 				<button class="btn btn-danger" (click)="onCancel()"
 					data-toggle="modal" data-target="#resumeModal">Cancel
+				</button>
+				<button class="btn btn-danger" (click)="onDeleteResume()"
+					data-toggle="modal" data-target="#resumeModal">Delete
 				</button>
 			</div>	
 		</div>

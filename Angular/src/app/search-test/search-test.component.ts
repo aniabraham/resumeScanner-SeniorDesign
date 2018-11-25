@@ -85,6 +85,15 @@ export class SearchTestComponent implements OnInit {
 		this.data = null;
 	}
 
+	onRefresh(): void {
+		this.data = null;
+		this.onSearch();
+	}
+
+	onDelete(deleteId: object): void {
+		this.searchService.delete(deleteId);
+	}
+
 	onSortChange(): void {
 		if (this.ascending) {
 			this.ascending = false;
@@ -110,7 +119,7 @@ export class SearchTestComponent implements OnInit {
 			this.data.reverse();
 	}
 
-	onSearch(): void {
+	public onSearch(): void {
 		// take parameters from search inputs
 		let searchParams = {};
 

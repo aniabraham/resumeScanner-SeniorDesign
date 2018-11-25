@@ -47,6 +47,10 @@
 					Search
 				</button>
 
+				<button class="btn btn-default" (click)="onRefresh()">
+					Refresh
+				</button>
+
 				<button class="btn btn-default" (click)="onClear()">
 					Clear
 				</button>
@@ -93,7 +97,7 @@
 					<div *ngIf="data" class="list-group">
 						<a style="cursor: pointer; color: white;" 
 							class="list-group-item bg-success" 
-							*ngFor="let resume of data"
+							*ngFor="let resume of data; let i = index"
 							(click)="displayData(resume)">
 							{{resume.name}}
 						</a>
