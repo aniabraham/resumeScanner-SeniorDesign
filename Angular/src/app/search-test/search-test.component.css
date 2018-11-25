@@ -74,7 +74,7 @@ a {
 }
 
 .list-group{
-  max-height: 200px;
+  max-height: 500px;
   margin-bottom: 10px;
   overflow:scroll;
   -webkit-overflow-scrolling: touch;

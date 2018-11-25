@@ -147,7 +147,7 @@ export class ResumeViewerComponent implements OnInit {
 		let timeout = function(emitter: EventEmitter<void>) {
 			emitter.emit(null);
 		}
-		setTimeout(timeout(this.send), 200);
+		setTimeout(timeout(this.send), 700);
 		this.update.emit(null);
 	}
 
