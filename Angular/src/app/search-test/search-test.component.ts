@@ -178,7 +178,11 @@ export class SearchTestComponent implements OnInit {
 	}
 
 	displayData(data: ResumeData): void {
-		this.displayedData = data;
-		this.select.emit(data);
+		console.log(window.getSelection().toString().length);
+
+		if (window.getSelection().toString().length === 0) {
+			this.displayedData = data;
+			this.select.emit(data);
+		}
 	}
 }
