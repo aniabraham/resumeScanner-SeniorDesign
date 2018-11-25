@@ -133,10 +133,11 @@ router.post('/delete', verifyToken, function(req, res) {
         else {
             mongoose.model('resumes')
                 .findById(req.body['_id'], function(err, resume) {
-                    resume.remove(err => {
-                        if (err)
-                            return res.json(err);
-                    });
+                    if (resume)
+                        resume.remove(err => {
+                            if (err)
+                                return res.json(err);
+                        });
                 });
         }
     });

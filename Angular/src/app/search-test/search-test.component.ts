@@ -130,6 +130,7 @@ export class SearchTestComponent implements OnInit {
 
 	onDelete(deleteId: object): void {
 		this.searchService.delete(deleteId);
+		this.onRefresh();
 	}
 
 	onSortChange(): void {

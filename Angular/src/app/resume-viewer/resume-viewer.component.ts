@@ -136,7 +136,6 @@ export class ResumeViewerComponent implements OnInit {
 			params['removeEdu'] = this.removeEdu;
 		if (this.removeExp.length > 0)
 			params['removeExp'] = this.removeExp;
-		console.log(params);
 		
 		this.searchService.update(params);
 		// give the server time to process the update
