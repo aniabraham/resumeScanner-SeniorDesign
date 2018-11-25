@@ -47,11 +47,14 @@ export class ResumeViewerComponent implements OnInit {
 	}
 
 	private onDeleteResume(): void {
-		let idObject = {};
-		idObject["_id"] = this.resume["_id"];
+		if (confirm('Are you sure you want to delete ' + $('#name').val()
+				+ '?')) {
+			let idObject = {};
+			idObject["_id"] = this.resume["_id"];
 
-		this.delete.emit(idObject);
-		this.update.emit(null);
+			this.delete.emit(idObject);
+			this.update.emit(null);
+		}
 	}
 	
 	private addNew(type: string): void {
@@ -98,57 +101,60 @@ export class ResumeViewerComponent implements OnInit {
 	}
 
 	private onConfirm(): void {
-		let params = {};
+		if (confirm('Are you sure you want to update ' + $('#name').val()
+				+ '?')) {
+			let params = {};
 
-		for (let i = 0; i < this.forms.length; i++) {
-			params[this.forms[i]] = $('#' + this.forms[i]).val();
+			for (let i = 0; i < this.forms.length; i++) {
+				params[this.forms[i]] = $('#' + this.forms[i]).val();
+			}
+
+			params['education'] = [];
+			params['experience'] = [];
+			params['keywords'] = [];
+
+			for (let key in this.resumeCopy['keywords']) {
+				params['keywords'].push($('#keywords' + key).val());
+			}
+
+			for (let key in this.resumeCopy['education']) {
+				let temp = {};
+				temp['gpa'] = $('#gpa' + key).val()
+				temp['year'] = $('#year' + key).val()
+				temp['degree'] = $('#degree' + key).val()
+				temp['university'] = $('#university' + key).val()
+				temp['_id'] = this.resumeCopy['education'][key]._id;
+
+				params['education'].push(temp);
+			}
+
+			for (let key in this.resumeCopy['experience']) {
+				let temp = {};
+				temp['company'] = $('#company' + key).val()
+				temp['position'] = $('#position' + key).val()
+				temp['totalExperience'] = $('#totalExperience' + key).val()
+				temp['_id'] = this.resumeCopy['experience'][key]._id;
+
+				params['experience'].push(temp);
+			}
+
+			params['_id'] = this.resumeCopy._id;
+			if (this.removeEdu.length > 0)
+				params['removeEdu'] = this.removeEdu;
+			if (this.removeExp.length > 0)
+				params['removeExp'] = this.removeExp;
+			
+			this.searchService.update(params);
+
+			console.log(params);
+			// give the server time to process the update
+			// then renew the search values.
+			let timeout = function(emitter: EventEmitter<void>) {
+				emitter.emit(null);
+			}
+			setTimeout(timeout(this.send), 700);
+			this.update.emit(null);
 		}
-
-		params['education'] = [];
-		params['experience'] = [];
-		params['keywords'] = [];
-
-		for (let key in this.resumeCopy['keywords']) {
-			params['keywords'].push($('#keywords' + key).val());
-		}
-
-		for (let key in this.resumeCopy['education']) {
-			let temp = {};
-			temp['gpa'] = $('#gpa' + key).val()
-			temp['year'] = $('#year' + key).val()
-			temp['degree'] = $('#degree' + key).val()
-			temp['university'] = $('#university' + key).val()
-			temp['_id'] = this.resumeCopy['education'][key]._id;
-
-			params['education'].push(temp);
-		}
-
-		for (let key in this.resumeCopy['experience']) {
-			let temp = {};
-			temp['company'] = $('#company' + key).val()
-			temp['position'] = $('#position' + key).val()
-			temp['totalExperience'] = $('#totalExperience' + key).val()
-			temp['_id'] = this.resumeCopy['experience'][key]._id;
-
-			params['experience'].push(temp);
-		}
-
-		params['_id'] = this.resumeCopy._id;
-		if (this.removeEdu.length > 0)
-			params['removeEdu'] = this.removeEdu;
-		if (this.removeExp.length > 0)
-			params['removeExp'] = this.removeExp;
-		
-		this.searchService.update(params);
-
-		console.log(params);
-		// give the server time to process the update
-		// then renew the search values.
-		let timeout = function(emitter: EventEmitter<void>) {
-			emitter.emit(null);
-		}
-		setTimeout(timeout(this.send), 700);
-		this.update.emit(null);
 	}
 
 	private populateForms(): void {
