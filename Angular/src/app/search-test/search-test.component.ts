@@ -3,6 +3,7 @@ import { ResumeData } from '../resume-data';
 import { SearchService } from '../search.service';
 
 import 'jquery';
+import 'json2csv';
 declare let $: any;
 
 @Component({
@@ -83,6 +84,42 @@ export class SearchTestComponent implements OnInit {
 
 	onClear(): void {
 		this.data = null;
+	}
+
+	onExport(): void {
+		const jsonParser = require('json2csv').Parser;
+		const parser = new jsonParser();
+
+		// this will store the jsons without unnecessary data like path
+		let tempData = [];
+
+		this.data.forEach(obj => {
+			let tempObj = {};
+			tempObj['name'] = obj['name'];
+			tempObj['phone'] = obj['phone'];
+			tempObj['email'] = obj['email'];
+			tempObj['education'] = obj['education'];
+			tempObj['experience'] = obj['experience']
+			tempObj['date'] = obj['date'];
+
+			tempData.push(tempObj);
+		});
+
+		let csv = parser.parse(tempData);
+		this.download(csv);
+	}
+
+	download(data: any): void {
+		let blob = new Blob([data], {type: 'text/csv'});
+		let url = window.URL.createObjectURL(blob);
+
+		let a = document.createElement('a');
+		a.setAttribute('hidden', '');
+		a.setAttribute('href', url);
+		a.setAttribute('download', 'export.csv');
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
 	}
 
 	onRefresh(): void {
