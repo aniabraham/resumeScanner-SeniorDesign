@@ -28,7 +28,7 @@ export class ResumeViewerComponent implements OnInit {
 	private removeExp = [];
 
 	constructor(private searchService: SearchService,
-				private ref: ChangeDetectorRef) {}admin
+				private ref: ChangeDetectorRef) {}
 
 	ngAfterViewInit() {
 		if (this.popForms) {

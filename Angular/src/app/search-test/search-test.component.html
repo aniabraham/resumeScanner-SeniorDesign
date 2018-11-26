@@ -27,49 +27,50 @@
 				placeholder="GPA Greater Than" id="gpaSearch"
 				(keyup.enter)="onSearch()"/>
         </div>
-
-		<button type="submit" class="btn btn-primary pull-left" 
-			(click)="onSearch()">Search</button>
-		<button class="btn btn-primary pull-left"
-			(click)="onRefresh()">Refresh</button>
-		<button type="submit" class="btn btn-primary pull-left" 
-			(click)="onClear()">Clear</button>
-		<button type="submit" class="btn btn-primary pull-left" 
-			(click)="onExport()">Export</button>
-			
-		<div class="btn-group" role="group">
-			<div class="dropdown">
-				<button class="btn btn-secondary dropdown-toggle"
-					type="button" id="dropdownMenuButton" 
-					data-toggle="dropdown"
-					aria-haspopup="true" aria-expanded="false">
-					Sort by
-				</button>
-				<div class="dropdown-menu" 
-					aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item" (click)="onSort('Name')">
-						Name
-					</a>
-					<a class="dropdown-item" (click)="onSort('Email')">
-						Email
-					</a>
-					<a class="dropdown-item" (click)="onSort('GPA')">
-						GPA
-					</a>
-					<a class="dropdown-item" 
-						(click)="onSort('Experience')">
-						Total Experience
-					</a>
-					<a class="dropdown-item" (click)="onSort('Date')">
-						Date Submitted
-					</a>
+		<div class="row">
+			<button type="submit" class="btn btn-primary pull-left" 
+				(click)="onSearch()">Search</button>
+			<button class="btn btn-primary pull-left"
+				(click)="onRefresh()">Refresh</button>
+			<button type="submit" class="btn btn-primary pull-left" 
+				(click)="onClear()">Clear</button>
+			<button type="submit" class="btn btn-primary pull-left" 
+				(click)="onExport()">Export</button>
+				
+			<div class="btn-group" role="group">
+				<div class="dropdown">
+					<button class="btn btn-primary dropdown-toggle"
+						type="button" id="dropdownMenuButton" 
+						data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">
+						Sort by
+					</button>
+					<div class="dropdown-menu" 
+						aria-labelledby="dropdownMenuButton">
+						<a class="dropdown-item" (click)="onSort('Name')">
+							Name
+						</a>
+						<a class="dropdown-item" (click)="onSort('Email')">
+							Email
+						</a>
+						<a class="dropdown-item" (click)="onSort('GPA')">
+							GPA
+						</a>
+						<a class="dropdown-item" 
+							(click)="onSort('Experience')">
+							Total Experience
+						</a>
+						<a class="dropdown-item" (click)="onSort('Date')">
+							Date Submitted
+						</a>
+					</div>
+					<p>{{sortType}}</p>
 				</div>
-				<p>{{sortType}}</p>
 			</div>
-			<div class="btn btn-default" 
+			<button class="btn btn-primary pull-left" 
 				(click)="onSortChange()">
 				{{ascendingString}}
-			</div>
+			</button>
 		</div>
     </form>
 	<div>

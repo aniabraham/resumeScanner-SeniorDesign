@@ -31,6 +31,9 @@ export class ProfileComponent implements OnInit {
 	}
 
 	onResumeSelected(event) {
+		if(event['type'])
+			if (event['type'] === 'select')
+				return;
 
 		this.resumeView = true;
 		this.path = this.sanitizer.bypassSecurityTrustResourceUrl(event.path);

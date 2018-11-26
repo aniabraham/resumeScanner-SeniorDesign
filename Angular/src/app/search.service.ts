@@ -6,8 +6,8 @@ import { map } from 'rxjs/operators';
 import { ResumeData } from './resume-data';
 import { AuthService } from './auth.service';
 
-// let baseUrl:string = 'http://127.0.0.1:3000/resume/';
-let baseUrl:string = 'http://10.171.204.172:3000/resume/';
+let baseUrl:string = 'http://127.0.0.1:3000/resume/';
+//let baseUrl:string = 'http://10.171.204.172:3000/resume/';
 
 @Injectable()
 export class SearchService {

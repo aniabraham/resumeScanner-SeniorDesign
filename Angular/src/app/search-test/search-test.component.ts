@@ -88,20 +88,55 @@ export class SearchTestComponent implements OnInit {
 	}
 
 	onExport(): void {
+		if (this.data === null || this.data === undefined)
+			return;
 		const jsonParser = require('json2csv').Parser;
 		const parser = new jsonParser();
 
 		// this will store the jsons without unnecessary data like path
 		let tempData = [];
+		let maxEdu = 0;
+		let maxExp = 0;
+
+		// check to find the max number of exp and edu in the 
+		// selected resumes
+		for (let i in this.data) {
+			let explen = this.data[i]['experience'].length;
+			let edulen = this.data[i]['education'].length;
+			if (explen > maxExp)
+				maxExp = explen;
+			if (edulen > maxEdu)
+				maxEdu = edulen;
+		}
 
 		this.data.forEach(obj => {
 			let tempObj = {};
 			tempObj['name'] = obj['name'];
 			tempObj['phone'] = obj['phone'];
 			tempObj['email'] = obj['email'];
-			tempObj['education'] = obj['education'];
-			tempObj['experience'] = obj['experience']
 			tempObj['date'] = obj['date'];
+			let objExp = obj['experience'];
+			let objEdu = obj['education'];
+
+			for (let i = 0; i < maxExp; i++) {
+				let attributeString = 'experience' + i;
+				tempObj[attributeString] = {};
+				if (i < objExp.length) {
+					let concatString = objExp[i]['company'] + '; '
+						+ objExp[i]['position'];
+					tempObj[attributeString] = concatString;
+				}
+			}
+
+			for (let i = 0; i < maxEdu; i++) {
+				let attributeString = 'education' + i;
+				tempObj[attributeString] = {};
+				if (i < objEdu.length) {
+					let concatString = objEdu[i]['university'] + '; '
+						+ objEdu[i]['degree'] + '; ' + objEdu[i]['gpa'];
+					tempObj[attributeString] = concatString;
+				}
+			}
 
 			tempData.push(tempObj);
 		});
